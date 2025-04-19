@@ -3,240 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>首页 - 高德地图</title>
+    <title>我的行程</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .map-container {
-            position: fixed;
+        /* 重置默认样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            padding-bottom: 60px;
+            height: 100vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 状态栏样式 */
+        .status-bar {
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 60px;
-            background: #f0f0f0;
-            z-index: 1;
-        }
-
-        .map-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .search-container {
-            position: fixed;
-            top: 40px;
-            left: 15px;
-            right: 15px;
             z-index: 100;
         }
 
-        .search-box {
-            background: white;
-            border-radius: 8px;
-            padding: 10px 15px;
+        .status-bar .time {
+            font-weight: 600;
+        }
+
+        .status-bar .right {
             display: flex;
-            align-items: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        .search-box input {
-            border: none;
-            outline: none;
-            width: 100%;
-            margin-left: 10px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .top-right-buttons {
-            position: fixed;
-            top: 40px;
-            right: 15px;
-            z-index: 100;
-            display: flex;
-            gap: 10px;
-        }
-
-        .top-right-btn {
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: #333;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            text-decoration: none;
-        }
-
-        .layer-btn {
-            position: fixed;
-            bottom: 200px;
-            right: 15px;
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            z-index: 100;
-            font-size: 20px;
-        }
-
-        .location-btn {
-            position: fixed;
-            bottom: 140px;
-            right: 15px;
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            z-index: 100;
-            font-size: 20px;
-        }
-
-        .route-btn {
-            position: fixed;
-            bottom: 80px;
-            right: 15px;
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            z-index: 100;
-            font-size: 20px;
-        }
-
-        .weather-info {
-            position: fixed;
-            bottom: 80px;
-            left: 15px;
-            background: white;
-            border-radius: 20px;
-            padding: 6px 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: #666;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            z-index: 100;
-        }
-
-        .function-grid {
-            position: fixed;
-            bottom: 70px;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 15px;
-            z-index: 90;
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 15px;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-        }
-
-        .function-item {
-            display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 5px;
+        }
+
+        /* 头部导航 */
+        .header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            position: sticky;
+            top: 40px;
+            z-index: 99;
+        }
+
+        .header .back {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
             text-decoration: none;
             color: inherit;
         }
 
-        .function-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: #f0f7ff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+        .header .title {
+            font-size: 18px;
+            font-weight: 500;
         }
 
-        .function-name {
-            font-size: 12px;
+        .header .invoice {
             color: #333;
-            text-align: center;
         }
 
-        .second-row {
-            margin-top: 10px;
-        }
-
-        .hot-spot {
-            position: fixed;
-            top: 100px;
-            left: 15px;
+        /* 标签栏 */
+        .tabs {
+            display: flex;
+            padding: 10px 15px;
+            gap: 15px;
             background: white;
-            border-radius: 20px;
-            padding: 8px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            position: sticky;
+            top: 95px;
+            z-index: 98;
+        }
+
+        .tabs::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+
+        .tab {
+            padding: 5px 15px;
+            border-radius: 15px;
+            background: #f5f7fa;
+            color: #333;
+            flex-shrink: 0;
+        }
+
+        .tab.active {
+            background: #e8f3ff;
+            color: #1890ff;
+        }
+
+        /* 订单列表容器 */
+        .order-list {
+            padding: 15px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .order-item {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .order-type {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 14px;
-            color: #333;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            z-index: 100;
         }
 
-        .hot-spot::after {
-            content: "×";
-            margin-left: 5px;
+        .order-type img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .order-status {
             color: #999;
         }
 
-        .user-avatar {
-            position: fixed;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            overflow: hidden;
-            z-index: 100;
-            border: 2px solid white;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .question-box {
-            position: fixed;
-            bottom: 280px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            border-radius: 8px;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            z-index: 100;
+        .order-time {
+            color: #666;
             font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .order-price {
+            font-size: 16px;
+            font-weight: 500;
             color: #333;
+        }
+
+        .location {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .location-point {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .location-point::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .location-start::before {
+            background: #52c41a;
+        }
+
+        .location-end::before {
+            background: #f5222d;
+        }
+
+        .order-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 6px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            background: white;
+        }
+
+        .btn-primary {
+            background: #1890ff;
+            color: white;
+            border: none;
+        }
+
+        .discount-tag {
+            background: #ff4d4f;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        /* 新增订单样式 */
+        .order-type-tag {
+            display: inline-block;
+            padding: 2px 6px;
+            background: #e6f7ff;
+            color: #1890ff;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 8px;
         }
     </style>
     <script>
@@ -259,124 +247,199 @@
     <!-- 状态栏 -->
     <div class="status-bar">
         <span class="time"></span>
+       
     </div>
 
-    <!-- 地图容器 -->
-    <div class="map-container">
-        <img src="img/首页.jpg" alt="地图">
+    <!-- 头部导航 -->
+    <div class="header">
+        <a href="profile.html" class="back">
+            <span>←</span>
+            <span>我的行程</span>
+        </a>
+        <div class="invoice">开发票</div>
     </div>
 
-    <!-- 搜索框 -->
-    <div class="search-container">
-        <div class="search-box">
-            <span>🔍</span>
-            <input type="text" placeholder="查找地点、公交、地铁">
+    <!-- 标签栏 -->
+    <div class="tabs">
+        <div class="tab active">全部</div>
+        <div class="tab">打车</div>
+        <div class="tab">代驾</div>
+        <div class="tab">秒送</div>
+        <div class="tab">顺风车</div>
+    </div>
+
+    <!-- 订单列表 -->
+    <div class="order-list">
+        <div class="order-item">
+            <div class="order-header">
+                <div class="order-type">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMTg5MGZmIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptNSAxMWgtNHY0aC0ydi00SDd2LTJoNFY3aDJ2NEgxN3YyeiIvPjwvc3ZnPg==" alt="风韵特惠快车">
+                    <span>风韵特惠快车</span>
+                    <span>实时</span>
+                </div>
+                <span class="order-status">已完成</span>
+            </div>
+            <div class="order-time">2025年04月19日 22:36</div>
+            <div class="order-price">¥23.71</div>
+            <div class="location">
+                <div class="location-point location-start">兴夏苑北区</div>
+                <div class="location-point location-end">悦海天润府（北门）</div>
+            </div>
+            <div class="order-actions">
+                <button class="btn">呼叫返程</button>
+                <button class="btn btn-primary">再来一单<span class="discount-tag">最高减3元</span></button>
+            </div>
         </div>
-    </div>
 
-    <!-- 热门旅游胜地 -->
-    <div class="hot-spot">
-        热门旅游胜地 →
-    </div>
+        <div class="order-item">
+            <div class="order-header">
+                <div class="order-type">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMTg5MGZmIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptNSAxMWgtNHY0aC0ydi00SDd2LTJoNFY3aDJ2NEgxN3YyeiIvPjwvc3ZnPg==" alt="风韵特惠快车">
+                    <span>风韵特惠快车</span>
+                    <span>实时</span>
+                </div>
+                <span class="order-status">已完成</span>
+            </div>
+            <div class="order-time">2025年04月19日 18:26</div>
+            <div class="order-price">¥21.95</div>
+            <div class="location">
+                <div class="location-point location-start">悦海天润府（北门）</div>
+                <div class="location-point location-end">兴夏苑北区</div>
+            </div>
+            <div class="order-actions">
+                <button class="btn">呼叫返程</button>
+                <button class="btn btn-primary">再来一单</button>
+            </div>
+        </div>
 
-    <!-- 用户头像 -->
-    <!-- <div class="user-avatar">
-        <img src="img/WechatIMG413.jpg" alt="用户头像">
-    </div> -->
+        <!-- 订单1 -->
+        <div class="order-item">
+            <div class="order-header">
+                <div class="order-type">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMTg5MGZmIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptNSAxMWgtNHY0aC0ydi00SDd2LTJoNFY3aDJ2NEgxN3YyeiIvPjwvc3ZnPg==" alt="风韵特惠快车">
+                    <span>风韵特惠快车</span>
+                    <span>实时</span>
+                </div>
+                <span class="order-status">已完成</span>
+            </div>
+            <div class="order-time">2025年04月19日 07:52</div>
+            <div class="order-price">¥20.3</div>
+            <div class="location">
+                <div class="location-point location-start">悦海天润府（北门）</div>
+                <div class="location-point location-end">宁夏医科大学总医院</div>
+            </div>
+            <div class="order-actions">
+                <button class="btn">呼叫返程</button>
+                <button class="btn btn-primary">再来一单<span class="discount-tag">最高减3元</span></button>
+            </div>
+        </div>
 
-    <!-- 问题框 -->
-    <div class="question-box">
-        悦海天润府（北门）这个门汽车可以进入吗？
-    </div>
+        <!-- 订单2 -->
+        <div class="order-item">
+            <div class="order-header">
+                <div class="order-type">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMTg5MGZmIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptNSAxMWgtNHY0aC0ydi00SDd2LTJoNFY3aDJ2NEgxN3YyeiIvPjwvc3ZnPg==" alt="风韵经济型">
+                    <span>风韵经济型</span>
+                    <span>实时</span>
+                </div>
+                <span class="order-status">已完成</span>
+            </div>
+            <div class="order-time">2025年04月14日 08:02</div>
+            <div class="order-price">¥8.87</div>
+            <div class="location">
+                <div class="location-point location-start">悦海天润府（北门）</div>
+                <div class="location-point location-end">星程酒店（银川悦海新天地金凤万达店）</div>
+            </div>
+            <div class="order-actions">
+                <button class="btn">呼叫返程</button>
+                <button class="btn btn-primary">再来一单</button>
+            </div>
+        </div>
 
-    <!-- 右侧按钮组 -->
-    <div class="top-right-buttons">
-        <a href="#" class="top-right-btn">+</a>
-        <a href="#" class="top-right-btn">⚙️</a>
-    </div>
+        <!-- 新增订单 -->
+        <div class="order-item">
+            <div class="order-header">
+                <div class="order-type">
+                    <img src="img/WechatIMG414.jpg" alt="聚的特惠快车">
+                    <span>聚的特惠快车</span>
+                    <span class="order-type-tag">实时</span>
+                </div>
+                <span class="order-status">已完成</span>
+            </div>
+            <div class="order-time">2025年04月12日 17:52</div>
+            <div class="order-price">¥4.36</div>
+            <div class="location">
+                <div class="location-point location-start">葛记焖饼（伏牛路总店）</div>
+                <div class="location-point location-end">全季酒店（郑州市政府绿城广场店）</div>
+            </div>
+            <div class="order-actions">
+                <button class="btn">呼叫返程</button>
+                <button class="btn btn-primary">再来一单</button>
+            </div>
+        </div>
 
-    <!-- 图层按钮 -->
-    <div class="layer-btn">☰</div>
+        <div class="order-item">
+            <div class="order-header">
+                <div class="order-type">
+                    <img src="img/WechatIMG414.jpg" alt="妥妥特选特惠快车">
+                    <span>妥妥特选特惠快车</span>
+                    <span class="order-type-tag">实时</span>
+                </div>
+                <span class="order-status">已完成</span>
+            </div>
+            <div class="order-time">2025年04月12日 16:52</div>
+            <div class="order-price">¥8.35</div>
+            <div class="location">
+                <div class="location-point location-start">河南博物院（南门）</div>
+                <div class="location-point location-end">葛记焖饼（伏牛路总店）</div>
+            </div>
+            <div class="order-actions">
+                <button class="btn">呼叫返程</button>
+                <button class="btn btn-primary">再来一单</button>
+            </div>
+        </div>
 
-    <!-- 定位按钮 -->
-    <div class="location-btn">📍</div>
+        <div class="order-item">
+            <div class="order-header">
+                <div class="order-type">
+                    <img src="img/WechatIMG414.jpg" alt="享道特惠快车">
+                    <span>享道特惠快车</span>
+                    <span class="order-type-tag">实时</span>
+                </div>
+                <span class="order-status">已完成</span>
+            </div>
+            <div class="order-time">2025年04月12日 13:14</div>
+            <div class="order-price">¥9.84</div>
+            <div class="location">
+                <div class="location-point location-start">全季酒店（郑州市政府绿城广场店）</div>
+                <div class="location-point location-end">河南博物院</div>
+            </div>
+            <div class="order-actions">
+                <button class="btn">呼叫返程</button>
+                <button class="btn btn-primary">再来一单</button>
+            </div>
+        </div>
 
-    <!-- 路线按钮 -->
-    <div class="route-btn">↗</div>
-
-    <!-- 天气信息 -->
-    <div class="weather-info">
-        <span>☁️</span>
-        <span>-17°C</span>
-    </div>
-
-    <!-- 功能网格
-    <div class="function-grid">
-        <a href="#" class="function-item">
-            <div class="function-icon">🚗</div>
-            <div class="function-name">驾车</div>
-        </a>
-        <a href="#" class="function-item">
-            <div class="function-icon">🚌</div>
-            <div class="function-name">公交地铁</div>
-        </a>
-        <a href="#" class="function-item">
-            <div class="function-icon">👨</div>
-            <div class="function-name">车主服务</div>
-        </a>
-        <a href="#" class="function-item">
-            <div class="function-icon">🚕</div>
-            <div class="function-name">打车</div>
-        </a>
-        <a href="#" class="function-item">
-            <div class="function-icon">🏨</div>
-            <div class="function-name">订酒店</div>
-        </a>
-        <a href="#" class="function-item second-row">
-            <div class="function-icon">🚂</div>
-            <div class="function-name">火车票机票</div>
-        </a>
-        <a href="#" class="function-item second-row">
-            <div class="function-icon">🚗</div>
-            <div class="function-name">顺风车</div>
-        </a>
-        <a href="#" class="function-item second-row">
-            <div class="function-icon">🛵</div>
-            <div class="function-name">秒送</div>
-        </a>
-        <a href="#" class="function-item second-row">
-            <div class="function-icon">🚗</div>
-            <div class="function-name">租车</div>
-        </a>
-        <a href="#" class="function-item second-row">
-            <div class="function-icon">🏢</div>
-            <div class="function-name">企业用车</div>
-        </a>
-    </div> -->
-
-    <!-- 底部导航栏 -->
-    <div class="bottom-nav">
-        <a href="home.html" class="nav-item active">
-            <span class="icon">🏠</span>
-            <span>首页</span>
-        </a>
-        <a href="nearby.html" class="nav-item">
-            <span class="icon">📍</span>
-            <span>附近</span>
-        </a>
-        <a href="message.html" class="nav-item">
-            <span class="icon">💬</span>
-            <span>消息</span>
-            <span class="badge">72</span>
-        </a>
-        <a href="taxi.html" class="nav-item">
-            <span class="icon">🚗</span>
-            <span>打车</span>
-        </a>
-        <a href="profile.html" class="nav-item">
-            <span class="icon">👤</span>
-            <span>我的</span>
-        </a>
+        <div class="order-item">
+            <div class="order-header">
+                <div class="order-type">
+                    <img src="img/WechatIMG414.jpg" alt="中交特惠快车">
+                    <span>中交特惠快车</span>
+                    <span class="order-type-tag">实时</span>
+                </div>
+                <span class="order-status">已完成</span>
+            </div>
+            <div class="order-time">2025年04月12日 12:05</div>
+            <div class="order-price">¥15.2</div>
+            <div class="location">
+                <div class="location-point location-start">高铁公园</div>
+                <div class="location-point location-end">全季酒店（郑州市政府绿城广场店）</div>
+            </div>
+            <div class="order-actions">
+                <button class="btn">呼叫返程</button>
+                <button class="btn btn-primary">再来一单</button>
+            </div>
+        </div>
     </div>
 </body>
 </html> 

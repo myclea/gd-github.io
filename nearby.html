@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>附近 - 高德地图</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .nearby-header {
+            background: white;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .search-box {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .category-list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            padding: 20px 15px;
+            gap: 15px;
+            background: white;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .category-icon {
+            width: 45px;
+            height: 45px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .category-name {
+            font-size: 12px;
+            color: #333;
+        }
+
+        .place-list {
+            margin-top: 10px;
+        }
+
+        .place-item {
+            display: flex;
+            padding: 15px;
+            background: white;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 15px;
+        }
+
+        .place-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            background: #f5f5f5;
+            overflow: hidden;
+        }
+
+        .place-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .place-info {
+            flex: 1;
+        }
+
+        .place-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .place-rating {
+            color: #ff9c00;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .place-address {
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .place-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .place-tag {
+            background: #f5f5f5;
+            color: #666;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-size: 12px;
+        }
+
+        .section-title {
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            background: #f5f5f5;
+        }
+    </style>
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.querySelector('.time').textContent = `${hours}:${minutes}`;
+        }
+
+        // 页面加载完成后立即更新时间
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            // 每分钟更新一次时间
+            setInterval(updateTime, 60000);
+        });
+    </script>
+</head>
+<body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <span class="time"></span>
+    </div>
+
+    <!-- 附近头部 -->
+    <div class="nearby-header">
+        <div class="search-box">
+            <span>🔍</span>
+            <input type="text" placeholder="搜索附近的地点、公交、地铁">
+        </div>
+    </div>
+
+    <!-- 分类列表 -->
+    <div class="category-list">
+        <div class="category-item">
+            <div class="category-icon">🍽️</div>
+            <span class="category-name">美食</span>
+        </div>
+        <div class="category-item">
+            <div class="category-icon">🏨</div>
+            <span class="category-name">酒店</span>
+        </div>
+        <div class="category-item">
+            <div class="category-icon">🎬</div>
+            <span class="category-name">电影</span>
+        </div>
+        <div class="category-item">
+            <div class="category-icon">🏥</div>
+            <span class="category-name">医院</span>
+        </div>
+        <div class="category-item">
+            <div class="category-icon">🛍️</div>
+            <span class="category-name">购物</span>
+        </div>
+        <div class="category-item">
+            <div class="category-icon">🎮</div>
+            <span class="category-name">休闲</span>
+        </div>
+        <div class="category-item">
+            <div class="category-icon">🏛️</div>
+            <span class="category-name">景点</span>
+        </div>
+        <div class="category-item">
+            <div class="category-icon">🚌</div>
+            <span class="category-name">公交</span>
+        </div>
+        <div class="category-item">
+            <div class="category-icon">🚇</div>
+            <span class="category-name">地铁</span>
+        </div>
+        <div class="category-item">
+            <div class="category-icon">➕</div>
+            <span class="category-name">更多</span>
+        </div>
+    </div>
+
+    <!-- 推荐地点 -->
+    <div class="section-title">附近推荐</div>
+    <div class="place-list">
+        <div class="place-item">
+            <div class="place-image">
+                <img src="img/附近.jpg" alt="世纪城星巴克">
+            </div>
+            <div class="place-info">
+                <div class="place-name">世纪城星巴克</div>
+                <div class="place-rating">⭐️ 4.8</div>
+                <div class="place-address">银川市兴庆区世纪城商业广场</div>
+                <div class="place-tags">
+                    <span class="place-tag">咖啡店</span>
+                    <span class="place-tag">下午茶</span>
+                </div>
+            </div>
+        </div>
+        <div class="place-item">
+            <div class="place-image">
+                <img src="img/附近.jpg" alt="悦海天润府">
+            </div>
+            <div class="place-info">
+                <div class="place-name">悦海天润府</div>
+                <div class="place-rating">⭐️ 4.5</div>
+                <div class="place-address">银川市兴庆区悦海天润府小区</div>
+                <div class="place-tags">
+                    <span class="place-tag">小区</span>
+                    <span class="place-tag">住宅区</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <span class="icon">🏠</span>
+            <span>首页</span>
+        </a>
+        <a href="nearby.html" class="nav-item active">
+            <span class="icon">📍</span>
+            <span>附近</span>
+        </a>
+        <a href="message.html" class="nav-item">
+            <span class="icon">💬</span>
+            <span>消息</span>
+            <span class="badge">4</span>
+        </a>
+        <a href="taxi.html" class="nav-item">
+            <span class="icon">🚗</span>
+            <span>打车</span>
+            <span class="badge">红包</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <span class="icon">👤</span>
+            <span>我的</span>
+        </a>
+    </div>
+</body>
+</html> 

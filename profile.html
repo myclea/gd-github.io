@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>我的 - 高德地图</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .profile-header {
+            background: white;
+            padding: 20px 15px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-name {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .user-level {
+            display: inline-block;
+            background: #e6f7ff;
+            color: #1890ff;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-icon {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .main-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: white;
+            color: #666;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f0;
+            text-decoration: none;
+        }
+
+        .stats-section {
+            display: flex;
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .stats-item {
+            flex: 1;
+            text-align: center;
+            border-right: 1px solid #f0f0f0;
+        }
+
+        .stats-item:last-child {
+            border-right: none;
+        }
+
+        .stats-item a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .stats-value {
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stats-label {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            padding: 20px 15px;
+            gap: 15px;
+            background: white;
+            margin-bottom: 10px;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: #f5f5f5;
+        }
+
+        .feature-name {
+            font-size: 12px;
+            color: #333;
+            text-align: center;
+        }
+
+        .wallet-section {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .section-more {
+            color: #999;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .wallet-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .wallet-item {
+            text-align: center;
+        }
+
+        .wallet-value {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .wallet-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .car-section {
+            background: white;
+            padding: 15px;
+        }
+
+        .car-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .car-image {
+            width: 60px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .car-details {
+            flex: 1;
+        }
+
+        .car-number {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .car-tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .car-desc {
+            font-size: 13px;
+            color: #999;
+        }
+    </style>
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.querySelector('.time').textContent = `${hours}:${minutes}`;
+        }
+
+        // 页面加载完成后立即更新时间
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            // 每分钟更新一次时间
+            setInterval(updateTime, 60000);
+        });
+    </script>
+</head>
+<body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <span class="time"></span>
+    </div>
+
+    <!-- 个人信息头部 -->
+    <div class="profile-header">
+        <div class="user-info">
+            <div class="avatar">
+                <img src="img/WechatIMG413.jpg" alt="头像">
+            </div>
+            <div class="user-details">
+                <div class="user-name">77今天喝点啥</div>
+                <div class="user-level">可成为 Lv.3 高德达人</div>
+                <div class="user-stats">
+                    <span>0粉丝</span>
+                    <span>0关注</span>
+                    <span>7贡献</span>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="header-icon">📋</span>
+            <span class="header-icon">⚙️</span>
+        </div>
+    </div>
+
+    <!-- 主页链接 -->
+    <a href="#" class="main-link">
+        <span>主页</span>
+        <span>></span>
+    </a>
+
+    <!-- 统计数据 -->
+    <div class="stats-section">
+        <div class="stats-item">
+            <a href="#">
+                <div class="stats-value">2</div>
+                <div class="stats-label">点亮城市</div>
+            </a>
+        </div>
+        <div class="stats-item">
+            <a href="#">
+                <div class="stats-value">9.6%</div>
+                <div class="stats-label">走过银川</div>
+            </a>
+        </div>
+        <div class="stats-item">
+            <a href="#">
+                <div class="stats-value">17639</div>
+                <div class="stats-label">浏览总量</div>
+            </a>
+        </div>
+        <div class="stats-item">
+            <a href="#">
+                <div class="stats-value">0</div>
+                <div class="stats-label">获赞总数</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- 功能区 -->
+    <div class="features-grid">
+        <a href="#" class="feature-item">
+            <div class="feature-icon">👩</div>
+            <div class="feature-name">语音包<br>林志玲</div>
+        </a>
+        <a href="#" class="feature-item">
+            <div class="feature-icon">🚗</div>
+            <div class="feature-name">车标<br>3D跑车</div>
+        </a>
+        <a href="#" class="feature-item">
+            <div class="feature-icon">🌍</div>
+            <div class="feature-name">皮肤<br>经典主题</div>
+        </a>
+    </div>
+
+    <!-- 订单状态 -->
+    <div class="features-grid">
+        <a href="index.html" class="feature-item">
+            <div class="feature-icon">📋</div>
+            <div class="feature-name">全部订单</div>
+        </a>
+        <a href="#" class="feature-item">
+            <div class="feature-icon">💳</div>
+            <div class="feature-name">待付款</div>
+        </a>
+        <a href="#" class="feature-item">
+            <div class="feature-icon">⏰</div>
+            <div class="feature-name">待使用</div>
+        </a>
+        <a href="#" class="feature-item">
+            <div class="feature-icon">↩️</div>
+            <div class="feature-name">退款/取消</div>
+        </a>
+        <a href="#" class="feature-item">
+            <div class="feature-icon">💬</div>
+            <div class="feature-name">待评价</div>
+        </a>
+    </div>
+
+    <!-- 功能入口 -->
+    <div class="features-grid">
+        <a href="#" class="feature-item">
+            <div class="feature-icon">⭐️</div>
+            <div class="feature-name">收藏夹</div>
+        </a>
+        <a href="#" class="feature-item">
+            <div class="feature-icon">💰</div>
+            <div class="feature-name">钱包卡券</div>
+        </a>
+        <a href="#" class="feature-item">
+            <div class="feature-icon">🔊</div>
+            <div class="feature-name">语音包</div>
+        </a>
+        <a href="#" class="feature-item">
+            <div class="feature-icon">🚗</div>
+            <div class="feature-name">3D车标</div>
+        </a>
+        <a href="#" class="feature-item">
+            <div class="feature-icon">🏪</div>
+            <div class="feature-name">我的店铺</div>
+        </a>
+    </div>
+
+    <!-- 我的钱包 -->
+    <div class="wallet-section">
+        <div class="section-header">
+            <div class="section-title">我的钱包</div>
+            <a href="#" class="section-more">进入 ></a>
+        </div>
+        <div class="wallet-grid">
+            <div class="wallet-item">
+                <div class="wallet-value">29.8万</div>
+                <div class="wallet-label">借钱</div>
+            </div>
+            <div class="wallet-item">
+                <div class="wallet-value">80G</div>
+                <div class="wallet-label">手机充值</div>
+            </div>
+            <div class="wallet-item">
+                <div class="wallet-value">10张</div>
+                <div class="wallet-label">优惠券</div>
+            </div>
+            <div class="wallet-item">
+                <div class="wallet-value">1张</div>
+                <div class="wallet-label">卡</div>
+            </div>
+            <div class="wallet-item">
+                <div class="wallet-value">0.00元</div>
+                <div class="wallet-label">余额</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 我的车辆 -->
+    <div class="car-section">
+        <div class="section-header">
+            <div class="section-title">我的车辆</div>
+            <a href="#" class="section-more">></a>
+        </div>
+        <div class="car-info">
+            <img src="img/我的.jpg" alt="车辆" class="car-image">
+            <div class="car-details">
+                <div class="car-number">
+                    宁A369FD
+                    <span class="car-tag">ETC</span>
+                </div>
+                <div class="car-desc">加油、洗车优惠点这里</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <span class="icon">🏠</span>
+            <span>首页</span>
+        </a>
+        <a href="nearby.html" class="nav-item">
+            <span class="icon">📍</span>
+            <span>附近</span>
+        </a>
+        <a href="message.html" class="nav-item">
+            <span class="icon">💬</span>
+            <span>消息</span>
+            <span class="badge">85</span>
+        </a>
+        <a href="taxi.html" class="nav-item">
+            <span class="icon">🚗</span>
+            <span>打车</span>
+            <span class="badge">高价</span>
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <span class="icon">👤</span>
+            <span>我的</span>
+        </a>
+    </div>
+</body>
+</html> 
