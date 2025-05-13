@@ -151,6 +151,11 @@ function selectCity(city) {
         $('cityNameDisplay').textContent = city;
     }
     
+    // 设置初始标题为"Stakeholder Analysis in [城市名]"
+    if(document.querySelector('.stakeholder-title')) {
+        document.querySelector('.stakeholder-title').textContent = `Stakeholder Analysis in ${city}`;
+    }
+    
     // 显示对应城市的图表
     if (city === 'San Francisco') {
         if($('sfDiagram')) $('sfDiagram').style.display = 'flex';
@@ -269,6 +274,16 @@ function updateStakeholderQuestion() {
     
     // 更新进度
     stakeholderStep = currentState.step;
+    
+    // 更新标题 - 如果是第7步或之后，标题为"Enabler Analysis"，否则为"Stakeholder Analysis"
+    if(document.querySelector('.stakeholder-title')) {
+        // "supporting"是第7步，所以如果当前步骤 >= 7，则使用"Enabler Analysis"
+        if (currentState.step >= 7) {
+            document.querySelector('.stakeholder-title').textContent = `Enabler Analysis in ${selectedCity}`;
+        } else {
+            document.querySelector('.stakeholder-title').textContent = `Stakeholder Analysis in ${selectedCity}`;
+        }
+    }
     
     // 控制按钮显示 - 第一个问题只显示返回城市按钮，其他问题只显示返回上一问题按钮
     if (currentStakeholderState === "start") {
@@ -810,7 +825,7 @@ function handleTechResponse(isYes) {
     $('techBackButton').style.display = techHistory.length > 0 ? 'inline-block' : 'none';
 }
 
-// 显示数据库信息 - 展示缺失的利益相关者信息
+// 显示数据库信息 - 展示缺失的利益相关者和城市指标数据
 function showDatabaseMessage(databaseId) {
     // 获取数据库内容
     const databaseContent = DATABASE_CONTENT[databaseId];
@@ -831,17 +846,21 @@ function showDatabaseMessage(databaseId) {
         $('databaseSubtitle').style.display = 'none';
     }
     
+    // 根据所选城市决定显示顺序
+    const isAccraSelected = selectedCity === 'Accra';
+    
     // 设置城市名称
-    $('firstCityName').textContent = 'San Francisco';
-    $('secondCityName').textContent = 'Accra';
+    $('firstCityName').textContent = isAccraSelected ? 'Accra' : 'San Francisco';
+    $('secondCityName').textContent = isAccraSelected ? 'San Francisco' : 'Accra';
     
     // 清空列表
     $('firstCityList').innerHTML = '';
     $('secondCityList').innerHTML = '';
     
-    // 填充旧金山数据
-    if (databaseContent.sf && databaseContent.sf.length > 0) {
-        databaseContent.sf.forEach(item => {
+    // 填充第一个城市数据（根据选择的城市）
+    const firstCityData = isAccraSelected ? databaseContent.accra : databaseContent.sf;
+    if (firstCityData && firstCityData.length > 0) {
+        firstCityData.forEach(item => {
             const li = document.createElement('li');
             li.textContent = item;
             $('firstCityList').appendChild(li);
@@ -853,9 +872,10 @@ function showDatabaseMessage(databaseId) {
         $('firstCityList').appendChild(li);
     }
     
-    // 填充阿克拉数据
-    if (databaseContent.accra && databaseContent.accra.length > 0) {
-        databaseContent.accra.forEach(item => {
+    // 填充第二个城市数据（根据选择的城市）
+    const secondCityData = isAccraSelected ? databaseContent.sf : databaseContent.accra;
+    if (secondCityData && secondCityData.length > 0) {
+        secondCityData.forEach(item => {
             const li = document.createElement('li');
             li.textContent = item;
             $('secondCityList').appendChild(li);
@@ -865,6 +885,22 @@ function showDatabaseMessage(databaseId) {
         li.textContent = 'No data available';
         li.className = 'no-data';
         $('secondCityList').appendChild(li);
+    }
+    
+    // 调整城市指标表顺序
+    const metricsTablesContainer = document.querySelector('.city-metrics-tables');
+    if (metricsTablesContainer) {
+        const tables = metricsTablesContainer.querySelectorAll('.city-metrics-table');
+        if (tables.length === 2) {
+            // 如果选择的是Accra，将Accra的表格放在前面
+            if (isAccraSelected) {
+                // 移除现有表格
+                metricsTablesContainer.innerHTML = '';
+                // 重新添加表格（顺序变换）
+                metricsTablesContainer.appendChild(tables[1]); // Accra 表格
+                metricsTablesContainer.appendChild(tables[0]); // San Francisco 表格
+            }
+        }
     }
     
     // 显示数据库窗口
