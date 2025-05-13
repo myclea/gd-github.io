@@ -1,444 +1,273 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>我的行程</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water-BOOST Technology Selector</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* 重置默认样式 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
-        }
-
-        body {
-            background: #f5f5f5;
-            padding-bottom: 60px;
-            height: 100vh;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* 状态栏样式 */
-        .status-bar {
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f8f9fa;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .status-bar .time {
-            font-weight: 600;
-        }
-
-        .status-bar .right {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* 头部导航 */
-        .header {
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            position: sticky;
-            top: 40px;
-            z-index: 99;
-        }
-
-        .header .back {
-            display: flex;
-            align-items: center;
-            font-size: 18px;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .header .title {
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        .header .invoice {
-            color: #333;
-        }
-
-        /* 标签栏 */
-        .tabs {
-            display: flex;
-            padding: 10px 15px;
-            gap: 15px;
-            background: white;
-            border-bottom: 1px solid #f0f0f0;
-            overflow-x: auto;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            position: sticky;
-            top: 95px;
-            z-index: 98;
-        }
-
-        .tabs::-webkit-scrollbar {
-            display: none; /* Chrome, Safari and Opera */
-        }
-
-        .tab {
-            padding: 5px 15px;
-            border-radius: 15px;
-            background: #f5f7fa;
-            color: #333;
-            flex-shrink: 0;
-        }
-
-        .tab.active {
-            background: #e8f3ff;
-            color: #1890ff;
-        }
-
-        /* 订单列表容器 */
-        .order-list {
-            padding: 15px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .order-item {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .order-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .order-type {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .order-type img {
-            width: 20px;
-            height: 20px;
-        }
-
-        .order-status {
-            color: #999;
-        }
-
-        .order-time {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .order-price {
-            font-size: 16px;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .location {
-            margin: 10px 0;
-            font-size: 14px;
-        }
-
-        .location-point {
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .location-point::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-
-        .location-start::before {
-            background: #52c41a;
-        }
-
-        .location-end::before {
-            background: #f5222d;
-        }
-
-        .order-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .btn {
-            padding: 6px 15px;
-            border-radius: 4px;
-            font-size: 14px;
-            border: 1px solid #ddd;
-            background: white;
-        }
-
-        .btn-primary {
-            background: #1890ff;
-            color: white;
-            border: none;
-        }
-
-        .discount-tag {
-            background: #ff4d4f;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-left: 5px;
-        }
-
-        /* 新增订单样式 */
-        .order-type-tag {
-            display: inline-block;
-            padding: 2px 6px;
-            background: #e6f7ff;
-            color: #1890ff;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-left: 8px;
-        }
-    </style>
-    <script>
-        function updateTime() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.querySelector('.time').textContent = `${hours}:${minutes}`;
-        }
-
-        // 页面加载完成后立即更新时间
-        document.addEventListener('DOMContentLoaded', function() {
-            updateTime();
-            // 每分钟更新一次时间
-            setInterval(updateTime, 60000);
-        });
-    </script>
 </head>
 <body>
-    <!-- 状态栏 -->
-    <div class="status-bar">
-        <span class="time"></span>
-       
+    <!-- 主容器 - 包含所有页面 -->
+    <div class="container">
+        <!-- 城市选择页面 - 应用的起始页面，用户选择研究城市 -->
+        <div id="citySelection" class="page active">
+            <div class="welcome-card">
+                <h1 class="main-title">Water-BOOST</h1>
+                <p class="main-subtitle">Bridging Opportunities and Optimising Support Toolkit for Water Innovation</p>
+                
+                <div class="selection-prompt">
+                    <p>Please select one of the following cities for your study:</p>
+                </div>
+                
+                <!-- 城市选择按钮 -->
+                <div class="city-buttons">
+                    <button class="city-button" onclick="selectCity('San Francisco')">
+                        San Francisco
+                    </button>
+                    
+                    <button class="city-button" onclick="selectCity('Accra')">
+                        Accra
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 利益相关者流程页面 - 分析城市水资源创新系统的利益相关者 -->
+        <div id="stakeholderFlow" class="page">
+            <div class="stakeholder-card">
+                <h1 class="stakeholder-title">Stakeholder Analysis in <span id="cityNameDisplay">San Francisco</span></h1>
+                
+                <!-- 图表展示区域 - 显示城市特定的利益相关者流程图 -->
+                <div class="stakeholder-diagram">
+                    <div class="diagram-container" id="sfDiagram">
+                        <!-- 旧金山图表区域 -->
+                        <img src="./WechatIMG484.png" alt="San Francisco Stakeholder Diagram" class="flow-diagram" id="sfDiagramImg">
+                    </div>
+                    <div class="diagram-container" id="accraDiagram" style="display:none;">
+                        <!-- 阿克拉图表区域 -->
+                        <img src="./WechatIMG485.png" alt="Accra Stakeholder Diagram" class="flow-diagram" id="accraDiagramImg">
+                    </div>
+                </div>
+                
+                <!-- 问题区域 - 显示当前问题和回答按钮 -->
+                <div class="stakeholder-question">
+                    <p id="questionText" class="question-text">Are all Public Utilities & Private Infrastructure Providers present?</p>
+                    
+                    <!-- 回答按钮 -->
+                    <div class="stakeholder-buttons">
+                        <button class="stakeholder-button yes" onclick="handleResponse(true)">Yes</button>
+                        <button class="stakeholder-button no" onclick="handleResponse(false)">No</button>
+                        <button id="backButton" class="stakeholder-button back" onclick="goBack()">Back</button>
+                        <button id="backToCityButton" class="stakeholder-button secondary" onclick="returnToCitySelection()">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 技术选择器页面 - 基于能力水平推荐合适的水资源技术 -->
+        <div id="technologySelector" class="page">
+            <div class="card">
+                <div class="header">
+                    <h1>Water Technology Selector</h1>
+                    <button class="back-btn" onclick="returnToStakeholderFlow()">← Back to Stakeholder Flow</button>
+                </div>
+                <div class="gradient-divider"></div>
+
+                <!-- 技术问题卡片 - 用于引导用户到适当的技术 -->
+                <div id="techQuestionCard" class="question-card">
+                    <p id="techQuestionText" class="question-text"></p>
+                    <div class="button-group">
+                        <button class="modern-button success" onclick="handleTechResponse(true)">Yes</button>
+                        <button class="modern-button error" onclick="handleTechResponse(false)">No</button>
+                        <button id="techBackButton" class="modern-button secondary" onclick="techGoBack()">Back</button>
+                    </div>
+                </div>
+
+                <!-- 能力选择区域 - 用户选择系统的能力水平 -->
+                <div class="capacity-selection" id="capacitySelection" style="display: none;">
+                    <h2>Please select a capacity level:</h2>
+                    <div class="capacity-buttons">
+                        <button class="capacity-button" onclick="setCapacity('high')">
+                            <h3>High</h3>
+                            <p>For advanced infrastructure and strong institutional capacity</p>
+                        </button>
+                        <button class="capacity-button" onclick="setCapacity('moderate')">
+                            <h3>Moderate</h3>
+                            <p>For developing systems with growing capacity</p>
+                        </button>
+                        <button class="capacity-button" onclick="setCapacity('low')">
+                            <h3>Low</h3>
+                            <p>For basic infrastructure and limited institutional capacity</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 结果显示区域 - 显示推荐的技术和描述 -->
+                <div id="resultDisplay" class="result-display" style="display: none;">
+                    <!-- 内容将由JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据库窗口页面 - 显示缺失的利益相关者和城市指标数据 -->
+        <div id="databaseWindow" class="page">
+            <div class="card database-card">
+                <div class="header">
+                    <h1 id="databaseTitle"></h1>
+                    <button class="back-btn" onclick="closeDatabase()">← Back</button>
+                </div>
+                <div class="gradient-divider"></div>
+                
+                <p id="databaseSubtitle" class="subtitle"></p>
+
+                <!-- 城市比较区域 - 比较两个城市的利益相关者 -->
+                <div class="city-comparison">
+                    <div class="city-data" id="firstCityData">
+                        <h2 id="firstCityName"></h2>
+                        <ul id="firstCityList" class="data-list"></ul>
+                    </div>
+                    
+                    <div class="vertical-divider"></div>
+                    
+                    <div class="city-data" id="secondCityData">
+                        <h2 id="secondCityName"></h2>
+                        <ul id="secondCityList" class="data-list"></ul>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+                
+                <!-- 城市指标部分 - 显示各城市的关键指标 -->
+                <div class="city-metrics-section">
+                    <h2>City Metrics</h2>
+                    <div class="city-metrics-tables">
+                        <div class="city-metrics-table">
+                            <h3>San Francisco</h3>
+                            <table>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Value</th>
+                                    <th>Level</th>
+                                </tr>
+                                <tr>
+                                    <td>GDP per capita</td>
+                                    <td>$97,000</td>
+                                    <td class="level high">High</td>
+                                </tr>
+                                <tr>
+                                    <td>HDI</td>
+                                    <td>0.920</td>
+                                    <td class="level high">High</td>
+                                </tr>
+                                <tr>
+                                    <td>Gini Index</td>
+                                    <td>0.48</td>
+                                    <td class="level low">Low</td>
+                                </tr>
+                                <tr>
+                                    <td>Access to water</td>
+                                    <td>99%</td>
+                                    <td class="level high">High</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="city-metrics-table">
+                            <h3>Accra</h3>
+                            <table>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Value</th>
+                                    <th>Level</th>
+                                </tr>
+                                <tr>
+                                    <td>GDP per capita</td>
+                                    <td>$2,200</td>
+                                    <td class="level low">Low</td>
+                                </tr>
+                                <tr>
+                                    <td>HDI</td>
+                                    <td>0.632</td>
+                                    <td class="level moderate">Moderate</td>
+                                </tr>
+                                <tr>
+                                    <td>Gini Index</td>
+                                    <td>0.43</td>
+                                    <td class="level low">Low</td>
+                                </tr>
+                                <tr>
+                                    <td>Access to water</td>
+                                    <td>92%</td>
+                                    <td class="level high">High</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+                
+                <!-- 指标标准部分 - 解释指标的高/中/低级别的阈值 -->
+                <div class="guidance-criteria">
+                    <h2>Guidance Criteria</h2>
+                    <table class="criteria-table">
+                        <tr>
+                            <th></th>
+                            <th>Low</th>
+                            <th>Moderate</th>
+                            <th>High</th>
+                        </tr>
+                        <tr>
+                            <td>GDP per capita [1]</td>
+                            <td>< $2,500</td>
+                            <td>$2,500 - $30,000</td>
+                            <td>> $30,000</td>
+                        </tr>
+                        <tr>
+                            <td>HDI [2]</td>
+                            <td>< 0.550</td>
+                            <td>0.550 - 0.700</td>
+                            <td>> 0.700</td>
+                        </tr>
+                        <tr>
+                            <td>Gini Index [3]</td>
+                            <td>> 0.4</td>
+                            <td>0.3 - 0.4</td>
+                            <td>< 0.3</td>
+                        </tr>
+                        <tr>
+                            <td>Access to water [4]</td>
+                            <td>< 50%</td>
+                            <td>50% - 90%</td>
+                            <td>> 90%</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 参考文献部分 -->
+                <div class="notes-references">
+                    <h3>References:</h3>
+                    <ol>
+                        <li>GDP per capita: World Bank (2022)</li>
+                        <li>Human Development Index: UNDP (2022)</li>
+                        <li>Gini Index: World Bank (2022)</li>
+                        <li>Access to water: WHO/UNICEF JMP (2022)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- 头部导航 -->
-    <div class="header">
-        <a href="profile.html" class="back">
-            <span>←</span>
-            <span>我的行程</span>
-        </a>
-        <div class="invoice">开发票</div>
-    </div>
-
-    <!-- 标签栏 -->
-    <div class="tabs">
-        <div class="tab active">全部</div>
-        <div class="tab">打车</div>
-        <div class="tab">代驾</div>
-        <div class="tab">秒送</div>
-        <div class="tab">顺风车</div>
-    </div>
-
-    <!-- 订单列表 -->
-    <div class="order-list">
-        <div class="order-item">
-            <div class="order-header">
-                <div class="order-type">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMTg5MGZmIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptNSAxMWgtNHY0aC0ydi00SDd2LTJoNFY3aDJ2NEgxN3YyeiIvPjwvc3ZnPg==" alt="风韵特惠快车">
-                    <span>风韵特惠快车</span>
-                    <span>实时</span>
-                </div>
-                <span class="order-status">已完成</span>
-            </div>
-            <div class="order-time">2025年04月19日 22:36</div>
-            <div class="order-price">¥23.71</div>
-            <div class="location">
-                <div class="location-point location-start">兴夏苑北区</div>
-                <div class="location-point location-end">悦海天润府（北门）</div>
-            </div>
-            <div class="order-actions">
-                <button class="btn">呼叫返程</button>
-                <button class="btn btn-primary">再来一单<span class="discount-tag">最高减3元</span></button>
-            </div>
-        </div>
-
-        <div class="order-item">
-            <div class="order-header">
-                <div class="order-type">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMTg5MGZmIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptNSAxMWgtNHY0aC0ydi00SDd2LTJoNFY3aDJ2NEgxN3YyeiIvPjwvc3ZnPg==" alt="风韵特惠快车">
-                    <span>风韵特惠快车</span>
-                    <span>实时</span>
-                </div>
-                <span class="order-status">已完成</span>
-            </div>
-            <div class="order-time">2025年04月19日 18:26</div>
-            <div class="order-price">¥21.95</div>
-            <div class="location">
-                <div class="location-point location-start">悦海天润府（北门）</div>
-                <div class="location-point location-end">兴夏苑北区</div>
-            </div>
-            <div class="order-actions">
-                <button class="btn">呼叫返程</button>
-                <button class="btn btn-primary">再来一单</button>
-            </div>
-        </div>
-
-        <!-- 订单1 -->
-        <div class="order-item">
-            <div class="order-header">
-                <div class="order-type">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMTg5MGZmIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptNSAxMWgtNHY0aC0ydi00SDd2LTJoNFY3aDJ2NEgxN3YyeiIvPjwvc3ZnPg==" alt="风韵特惠快车">
-                    <span>风韵特惠快车</span>
-                    <span>实时</span>
-                </div>
-                <span class="order-status">已完成</span>
-            </div>
-            <div class="order-time">2025年04月19日 07:52</div>
-            <div class="order-price">¥20.3</div>
-            <div class="location">
-                <div class="location-point location-start">悦海天润府（北门）</div>
-                <div class="location-point location-end">宁夏医科大学总医院</div>
-            </div>
-            <div class="order-actions">
-                <button class="btn">呼叫返程</button>
-                <button class="btn btn-primary">再来一单<span class="discount-tag">最高减3元</span></button>
-            </div>
-        </div>
-
-        <!-- 订单2 -->
-        <div class="order-item">
-            <div class="order-header">
-                <div class="order-type">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMTg5MGZmIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptNSAxMWgtNHY0aC0ydi00SDd2LTJoNFY3aDJ2NEgxN3YyeiIvPjwvc3ZnPg==" alt="风韵经济型">
-                    <span>风韵经济型</span>
-                    <span>实时</span>
-                </div>
-                <span class="order-status">已完成</span>
-            </div>
-            <div class="order-time">2025年04月14日 08:02</div>
-            <div class="order-price">¥8.87</div>
-            <div class="location">
-                <div class="location-point location-start">悦海天润府（北门）</div>
-                <div class="location-point location-end">星程酒店（银川悦海新天地金凤万达店）</div>
-            </div>
-            <div class="order-actions">
-                <button class="btn">呼叫返程</button>
-                <button class="btn btn-primary">再来一单</button>
-            </div>
-        </div>
-
-        <!-- 新增订单 -->
-        <div class="order-item">
-            <div class="order-header">
-                <div class="order-type">
-                    <img src="img/WechatIMG414.jpg" alt="聚的特惠快车">
-                    <span>聚的特惠快车</span>
-                    <span class="order-type-tag">实时</span>
-                </div>
-                <span class="order-status">已完成</span>
-            </div>
-            <div class="order-time">2025年04月12日 17:52</div>
-            <div class="order-price">¥4.36</div>
-            <div class="location">
-                <div class="location-point location-start">葛记焖饼（伏牛路总店）</div>
-                <div class="location-point location-end">全季酒店（郑州市政府绿城广场店）</div>
-            </div>
-            <div class="order-actions">
-                <button class="btn">呼叫返程</button>
-                <button class="btn btn-primary">再来一单</button>
-            </div>
-        </div>
-
-        <div class="order-item">
-            <div class="order-header">
-                <div class="order-type">
-                    <img src="img/WechatIMG414.jpg" alt="妥妥特选特惠快车">
-                    <span>妥妥特选特惠快车</span>
-                    <span class="order-type-tag">实时</span>
-                </div>
-                <span class="order-status">已完成</span>
-            </div>
-            <div class="order-time">2025年04月12日 16:52</div>
-            <div class="order-price">¥8.35</div>
-            <div class="location">
-                <div class="location-point location-start">河南博物院（南门）</div>
-                <div class="location-point location-end">葛记焖饼（伏牛路总店）</div>
-            </div>
-            <div class="order-actions">
-                <button class="btn">呼叫返程</button>
-                <button class="btn btn-primary">再来一单</button>
-            </div>
-        </div>
-
-        <div class="order-item">
-            <div class="order-header">
-                <div class="order-type">
-                    <img src="img/WechatIMG414.jpg" alt="享道特惠快车">
-                    <span>享道特惠快车</span>
-                    <span class="order-type-tag">实时</span>
-                </div>
-                <span class="order-status">已完成</span>
-            </div>
-            <div class="order-time">2025年04月12日 13:14</div>
-            <div class="order-price">¥9.84</div>
-            <div class="location">
-                <div class="location-point location-start">全季酒店（郑州市政府绿城广场店）</div>
-                <div class="location-point location-end">河南博物院</div>
-            </div>
-            <div class="order-actions">
-                <button class="btn">呼叫返程</button>
-                <button class="btn btn-primary">再来一单</button>
-            </div>
-        </div>
-
-        <div class="order-item">
-            <div class="order-header">
-                <div class="order-type">
-                    <img src="img/WechatIMG414.jpg" alt="中交特惠快车">
-                    <span>中交特惠快车</span>
-                    <span class="order-type-tag">实时</span>
-                </div>
-                <span class="order-status">已完成</span>
-            </div>
-            <div class="order-time">2025年04月12日 12:05</div>
-            <div class="order-price">¥15.2</div>
-            <div class="location">
-                <div class="location-point location-start">高铁公园</div>
-                <div class="location-point location-end">全季酒店（郑州市政府绿城广场店）</div>
-            </div>
-            <div class="order-actions">
-                <button class="btn">呼叫返程</button>
-                <button class="btn btn-primary">再来一单</button>
-            </div>
+    <!-- 加载应用脚本 -->
+    <script src="database_content.js"></script>
+    <script src="metrics_data.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- 分析完成弹窗 -->
+    <div id="completionModal" class="modal">
+        <div class="modal-content">
+            <h2 class="completion-title">Analysis completed, MVS<br>achieved now</h2>
+            <button class="modal-button" onclick="closeCompletionModal()">OK</button>
         </div>
     </div>
 </body>
