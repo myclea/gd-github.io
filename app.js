@@ -18,13 +18,13 @@ let techStep = 0;            // 技术选择当前步骤
 // 利益相关者流程数据 - 定义流程中每一步的问题和可能的路径
 const stakeholderFlowData = {
     "start": {
-        "question": "Are all Public Utilities & Private Infrastructure Providers present?", // 所有公共事业和私人基础设施提供商是否都在场？
+        "question": "Are Public Utilities & Private Infrastructure Providers present?", // 所有公共事业和私人基础设施提供商是否都在场？
         "yes": "policy_makers",
         "no": "database_a",
         "step": 1
     },
     "policy_makers": {
-        "question": "Are all Policy-makers & Regulators present?", // 所有政策制定者和监管者是否都在场？
+        "question": "Are Policy-makers & Regulators present?", // 所有政策制定者和监管者是否都在场？
         "yes": "governance",
         "no": "database_b",
         "step": 2,
@@ -38,14 +38,14 @@ const stakeholderFlowData = {
         "previous": "policy_makers"
     },
     "innovators": {
-        "question": "Are all Innovators & Entrepreneurs present?", // 所有创新者和企业家是否都在场？
+        "question": "Are Innovators & Entrepreneurs present?", // 所有创新者和企业家是否都在场？
         "yes": "investors",
         "no": "database_c",
         "step": 4,
         "previous": "governance"
     },
     "investors": {
-        "question": "Are all Investors & Accelerators present?", // 所有投资者和加速器是否都在场？
+        "question": "Are  Investors & Accelerators present?", // 所有投资者和加速器是否都在场？
         "yes": "aquapreneurship",
         "no": "database_d",
         "step": 5,
@@ -59,21 +59,21 @@ const stakeholderFlowData = {
         "previous": "investors"
     },
     "supporting": {
-        "question": "Are all Supporting Stakeholders present?", // 所有支持性利益相关者是否都在场？
+        "question": "Are Supporting Stakeholders present?", // 所有支持性利益相关者是否都在场？
         "yes": "intra_level",
         "no": "database_e",
         "step": 7,
         "previous": "aquapreneurship"
     },
     "intra_level": {
-        "question": "Are all Intra-level Governance enablers present?", // 所有内部级治理促成者是否都在场？
+        "question": "Are Intra-level Governance enablers present?", // 所有内部级治理促成者是否都在场？
         "yes": "intra_aqua",
         "no": "database_f",
         "step": 8,
         "previous": "supporting"
     },
     "intra_aqua": {
-        "question": "Are all Intra-level Aquapreneurship enablers present?", // 所有内部级水创业促成者是否都在场？
+        "question": "Are Intra-level Aquapreneurship enablers present?", // 所有内部级水创业促成者是否都在场？
         "yes": "check_intra",
         "no": "database_g",
         "step": 9,
@@ -87,14 +87,14 @@ const stakeholderFlowData = {
         "previous": "intra_aqua"
     },
     "trans_individual": {
-        "question": "Are all Trans-level Individual enablers present?", // 所有跨级个人促成者是否都在场？
+        "question": "Are Trans-level Individual enablers present?", // 所有跨级个人促成者是否都在场？
         "yes": "trans_multi",
         "no": "database_h",
         "step": 11,
         "previous": "check_intra"
     },
     "trans_multi": {
-        "question": "Are all Trans-level Multi-stakeholder enablers present?", // 所有跨级多方利益相关者促成者是否都在场？
+        "question": "Are Trans-level Multi-stakeholder enablers present?", // 所有跨级多方利益相关者促成者是否都在场？
         "yes": "check_trans",
         "no": "database_j",
         "step": 12,
@@ -108,7 +108,7 @@ const stakeholderFlowData = {
         "previous": "trans_multi"
     },
     "final_check": {
-        "question": "Are all Supporting enablers present?", // 所有支持性促成者是否都在场？
+        "question": "Are Supporting enablers present?", // 所有支持性促成者是否都在场？
         "yes": "end",
         "no": "database_k",
         "step": 14,
@@ -160,9 +160,23 @@ function selectCity(city) {
     if (city === 'San Francisco') {
         if($('sfDiagram')) $('sfDiagram').style.display = 'flex';
         if($('accraDiagram')) $('accraDiagram').style.display = 'none';
-    } else {
-        if($('accraDiagram')) $('accraDiagram').style.display = 'flex';
+        if($('singaporeDiagram')) $('singaporeDiagram').style.display = 'none';
+        if($('valenciaDiagram')) $('valenciaDiagram').style.display = 'none';
+    } else if (city === 'Accra') {
         if($('sfDiagram')) $('sfDiagram').style.display = 'none';
+        if($('accraDiagram')) $('accraDiagram').style.display = 'flex';
+        if($('singaporeDiagram')) $('singaporeDiagram').style.display = 'none';
+        if($('valenciaDiagram')) $('valenciaDiagram').style.display = 'none';
+    } else if (city === 'Singapore') {
+        if($('sfDiagram')) $('sfDiagram').style.display = 'none';
+        if($('accraDiagram')) $('accraDiagram').style.display = 'none';
+        if($('singaporeDiagram')) $('singaporeDiagram').style.display = 'flex';
+        if($('valenciaDiagram')) $('valenciaDiagram').style.display = 'none';
+    } else if (city === 'Valencia') {
+        if($('sfDiagram')) $('sfDiagram').style.display = 'none';
+        if($('accraDiagram')) $('accraDiagram').style.display = 'none';
+        if($('singaporeDiagram')) $('singaporeDiagram').style.display = 'none';
+        if($('valenciaDiagram')) $('valenciaDiagram').style.display = 'flex';
     }
     
     // 显示利益相关者流程页面
@@ -275,10 +289,10 @@ function updateStakeholderQuestion() {
     // 更新进度
     stakeholderStep = currentState.step;
     
-    // 更新标题 - 如果是第7步或之后，标题为"Enabler Analysis"，否则为"Stakeholder Analysis"
+    // 更新标题 - 如果是第8步或之后，标题为"Enabler Analysis"，否则为"Stakeholder Analysis"
     if(document.querySelector('.stakeholder-title')) {
-        // "supporting"是第7步，所以如果当前步骤 >= 7，则使用"Enabler Analysis"
-        if (currentState.step >= 7) {
+        // "intra_level"是第8步，所以如果当前步骤 >= 8，则使用"Enabler Analysis"
+        if (currentState.step >= 8) {
             document.querySelector('.stakeholder-title').textContent = `Enabler Analysis in ${selectedCity}`;
         } else {
             document.querySelector('.stakeholder-title').textContent = `Stakeholder Analysis in ${selectedCity}`;
@@ -352,24 +366,13 @@ function closeCompletionModal() {
 // 启动技术选择流程 - 从利益相关者流程转到技术选择器
 function startTechnologyFlow() {
     history.push('technologySelector');
-    
     // 重置技术流程历史
     techHistory = [];
     techStep = 1;
-    
     // 显示技术选择器页面
     showPage('technologySelector');
-    
-    // 显示第一个问题"Are all enablers present?"
-    $('techQuestionCard').style.display = 'block';
-    $('capacitySelection').style.display = 'none';
-    $('resultDisplay').style.display = 'none';
-    $('techQuestionText').textContent = "Are all enablers present?";
-    
-    // 设置按钮回调函数
-    window.currentTechQuestionFunction = "firstTechQuestion";
-    window.yesFunction = "secondTechQuestion";
-    window.noFunction = "showEnablersNotPresentResult";
+    // 直接进入第二个问题
+    secondTechQuestion();
 }
 
 // 显示能力选择界面
@@ -378,76 +381,101 @@ function showCapacitySelection() {
         function: window.currentTechQuestionFunction,
         step: techStep
     });
-    
     // 隐藏问题卡片，显示能力选择
     $('techQuestionCard').style.display = 'none';
     $('capacitySelection').style.display = 'block';
     $('resultDisplay').style.display = 'none';
+    setTechHeaderTitle('Water-BOOST Technology Recommendation Tool');
+}
+
+// 工具函数：设置技术选择器标题
+function setTechHeaderTitle(title) {
+    var headerTitle = document.querySelector('#technologySelector .header h1');
+    if (headerTitle) headerTitle.textContent = title;
 }
 
 // 第二个问题 - 询问是否有记录的水资源战略
 function secondTechQuestion() {
     techHistory.push(window.currentTechQuestionFunction);
     techStep++;
-    
     window.currentTechQuestionFunction = "secondTechQuestion";
     $('techQuestionText').textContent = "Is there a documented water strategy at a municipal, regional, or national level?";
     window.yesFunction = "thirdTechQuestion";
     window.noFunction = "showNoWaterStrategyResult";
+    // 隐藏左上角back-btn和底部Back按钮
+    var backBtn = document.querySelector('.back-btn');
+    if (backBtn) backBtn.style.display = 'none';
+    if ($('techBackButton')) $('techBackButton').style.display = 'none';
+    setTechHeaderTitle('Defining Regional Water Priority');
+}
+
+// 工具函数：在技术选择流程其它问题页显示back-btn并设置行为
+function showTechBackToStage2Btn() {
+    var backBtn = document.querySelector('.back-btn');
+    if (backBtn) {
+        backBtn.style.display = '';
+        backBtn.textContent = '← Back to the beginning of Stage 2';
+        backBtn.onclick = function() { secondTechQuestion(); };
+    }
 }
 
 // 第三个问题 - 询问战略是否包括明确优先级的水问题
 function thirdTechQuestion() {
     techHistory.push(window.currentTechQuestionFunction);
     techStep++;
-    
     window.currentTechQuestionFunction = "thirdTechQuestion";
     $('techQuestionText').textContent = "Does the strategy include clearly ranked or funded water issues?";
     window.yesFunction = "fourthTechQuestion";
     window.noFunction = "showNoWaterPriorityResult";
+    showTechBackToStage2Btn();
+    setTechHeaderTitle('Defining Regional Water Priority');
 }
 
 // 第四个问题 - 询问是否有与气候和农业相关的目标
 function fourthTechQuestion() {
     techHistory.push(window.currentTechQuestionFunction);
     techStep++;
-    
     window.currentTechQuestionFunction = "fourthTechQuestion";
     $('techQuestionText').textContent = "Are specific water-related goals tied to climate, agriculture or urban resilience plans?";
     window.yesFunction = "fifthTechQuestion";
-    window.noFunction = "showNoWaterPriorityResult";
+    window.noFunction = "showNoWaterPriorityResult_Climate";
+    showTechBackToStage2Btn();
+    setTechHeaderTitle('Defining Regional Water Priority');
 }
 
 // 第五个问题 - 询问是否有利益相关者共识
 function fifthTechQuestion() {
     techHistory.push(window.currentTechQuestionFunction);
     techStep++;
-    
     window.currentTechQuestionFunction = "fifthTechQuestion";
     $('techQuestionText').textContent = "Is stakeholder consensus visible around priority areas?";
     window.yesFunction = "sixthTechQuestion";
-    window.noFunction = "showNoWaterPriorityResult";
+    window.noFunction = "showNoWaterPriorityResult_Consensus";
+    showTechBackToStage2Btn();
+    setTechHeaderTitle('Defining Regional Water Priority');
 }
 
 // 第六个问题 - 询问治理是否集中
 function sixthTechQuestion() {
     techHistory.push(window.currentTechQuestionFunction);
     techStep++;
-    
     window.currentTechQuestionFunction = "sixthTechQuestion";
     $('techQuestionText').textContent = "Is governance predominantly centralised (e.g., central agency or PPP)?";
     window.yesFunction = "showCapacitySelection";
-    window.noFunction = "sixthBTechQuestion";
+    window.noFunction = "showNoDecentralisedGovernanceResult";
+    showTechBackToStage2Btn();
+    setTechHeaderTitle('Defining Governance Framework');
 }
 
 // 第六B个问题 - 询问地方权力
 function sixthBTechQuestion() {
     techHistory.push(window.currentTechQuestionFunction);
-    
     window.currentTechQuestionFunction = "sixthBTechQuestion";
     $('techQuestionText').textContent = "Is local/municipal authority empowered with budget and policy control?";
     window.yesFunction = "showCapacitySelection";
     window.noFunction = "showRebuildCapacityResult";
+    showTechBackToStage2Btn();
+    setTechHeaderTitle('Water-BOOST Technology Recommendation Tool');
 }
 
 // 显示无法识别技术选择时的结果
@@ -461,16 +489,16 @@ function showEnablersNotPresentResult() {
 // 显示没有水战略的结果
 function showNoWaterStrategyResult() {
     showResult(
-        "Recommendation",
-        "Regional water priority is NOT clearly defined."
+        "Regional water priority is NOT clearly defined",
+        "Not Defined→ Return to Stage 1\n\nRegional water priority is not defined because there is no formal strategic document to anchor decisions or align stakeholders. Without an overarching water strategy, prioritisation cannot proceed in a structured or accountable manner.\n\nConsider working with relevant authorities to develop or locate a municipal, regional, or national water strategy."
     );
 }
 
 // 显示没有水优先级的结果
 function showNoWaterPriorityResult() {
     showResult(
-        "Recommendation",
-        "Regional water priority is NOT clearly defined."
+        "Regional water priority is NOT clearly defined",
+        "Not Defined→ Return to Stage 1\n\nRegional water priority is not defined because the absence of ranked or funded issues means there is no clear indication of urgency or resource commitment. Prioritisation must be grounded in structured needs and allocated budgets.\n\nConsider enhancing your strategy to include prioritised and costed water issues."
     );
 }
 
@@ -484,6 +512,7 @@ function showRebuildCapacityResult() {
 
 // 显示技术推荐结果
 function showResult(title, message) {
+    setTechHeaderTitle('Water-BOOST Technology Recommendation Tool');
     // 隐藏问题卡片
     $('techQuestionCard').style.display = 'none';
     
@@ -511,15 +540,42 @@ function showResult(title, message) {
     
     // 添加标题文本
     const titleText = document.createElement('h2');
-    titleText.textContent = techName;
+    titleText.textContent = title;
     titleText.style.color = '#333';
     titleText.style.margin = '10px 0';
     titleContainer.appendChild(titleText);
     
     $('resultDisplay').appendChild(titleContainer);
     
-    // 如果有详细信息，则显示
-    if (detailedInfo) {
+    // 如果是特殊no water strategy内容，分段渲染
+    if (message.startsWith('Not Defined→ Return to Stage 1')) {
+        const msgBox = document.createElement('div');
+        msgBox.style.background = '#fafbfc';
+        msgBox.style.border = '2px solid rgb(10, 172, 226)';
+        msgBox.style.borderRadius = '8px';
+        msgBox.style.padding = '24px 28px 18px 28px';
+        msgBox.style.margin = '24px 0 18px 0';
+        msgBox.style.fontSize = '17px';
+        msgBox.style.color = '#222';
+        const lines = message.split('\n').filter(Boolean);
+        lines.forEach((line, idx) => {
+            if(idx === 0) {
+                const strong = document.createElement('strong');
+                strong.textContent = line;
+                strong.style.display = 'block';
+                strong.style.fontSize = '18px';
+                strong.style.color = 'rgb(10, 172, 226)';
+                strong.style.marginBottom = '12px';
+                msgBox.appendChild(strong);
+            } else {
+                const p = document.createElement('p');
+                p.textContent = line;
+                p.style.margin = '0 0 10px 0';
+                msgBox.appendChild(p);
+            }
+        });
+        $('resultDisplay').appendChild(msgBox);
+    } else if (detailedInfo) {
         // 创建详细信息容器
         const detailsContainer = document.createElement('div');
         detailsContainer.className = 'tech-details';
@@ -556,6 +612,34 @@ function showResult(title, message) {
         }
         
         $('resultDisplay').appendChild(detailsContainer);
+        // Guidance Criteria 区块
+        const guidanceBox = document.createElement('div');
+        guidanceBox.className = 'guidance-criteria-box';
+        guidanceBox.style.background = '#fafdff';
+        guidanceBox.style.border = '1.5px solid #1ca0e3';
+        guidanceBox.style.borderRadius = '10px';
+        guidanceBox.style.padding = '28px 24px 22px 24px';
+        guidanceBox.style.margin = '36px 0 0 0';
+        guidanceBox.style.maxWidth = '900px';
+        guidanceBox.style.fontSize = '16px';
+        guidanceBox.style.color = '#222';
+        guidanceBox.innerHTML = `
+            <h2 style="color:#1ca0e3;font-size:22px;margin-bottom:12px;font-weight:600;">Guidance Criteria</h2>
+            <h3 style="color:#1976D2;font-size:18px;margin-bottom:10px;font-weight:600;">Hype Cycle</h3>
+            <p style="color:#555;line-height:1.7;margin-bottom:16px;">The Hype Cycle is a widely recognised model used to analyse the maturity, adoption, and application of emerging technologies
+            <a href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle" target="_blank" style="color:#1ca0e3;text-decoration:underline;">[Gartner (2023)]</a>.
+            It categorises innovations through five key stages:</p>
+            <ol style="margin-left:18px;margin-bottom:14px;">
+                <li><strong>Technology Trigger:</strong> Marks the emergence of a new technological innovation. Often initiated by breakthrough research or early proof of concept. Few functional products exist yet, but media interest starts to grow.</li>
+                <li><strong>Peak of Inflated Expectations:</strong> Where initial enthusiasm and overpromising create a surge in interest in emerging technology.</li>
+                <li><strong>Trough of Disillusionment:</strong> Where expectations decrease as real-world challenges emerge. Some developers stop research of technology yet improved second generation solutions have potential to emerge.</li>
+                <li><strong>Slope of Enlightenment:</strong> Practical applications become clearer, more successful cases emerge due to better understanding of benefits, risks and implementation strategies
+                <a href="https://ec.europa.eu/info/sites/default/files/strategic_foresight_report_2020.pdf" target="_blank" style="color:#1ca0e3;text-decoration:underline;">[European Commission (2020)]</a>.
+                </li>
+                <li><strong>Plateau of Productivity:</strong> Where the technology reaches mainstream adoption and provides measurable benefits.</li>
+            </ol>
+        `;
+        $('resultDisplay').appendChild(guidanceBox);
     } else {
         // 如果没有详细信息，只显示消息文本
         const messageElem = document.createElement('p');
@@ -567,16 +651,14 @@ function showResult(title, message) {
         $('resultDisplay').appendChild(messageElem);
     }
     
-    // 添加"Start Over"按钮
+    // 添加"Go Back to Capacity Pathway"按钮
     const buttonContainer = document.createElement('div');
     buttonContainer.style.marginTop = '30px';
-    
     const startOverBtn = document.createElement('button');
     startOverBtn.className = 'modern-button primary';
-    startOverBtn.textContent = 'Start Over';
-    startOverBtn.onclick = returnToCitySelection;
+    startOverBtn.textContent = 'Go Back to Capacity Pathway';
+    startOverBtn.onclick = showCapacitySelection;
     buttonContainer.appendChild(startOverBtn);
-    
     $('resultDisplay').appendChild(buttonContainer);
 }
 
@@ -829,15 +911,12 @@ function handleTechResponse(isYes) {
 function showDatabaseMessage(databaseId) {
     // 获取数据库内容
     const databaseContent = DATABASE_CONTENT[databaseId];
-    
     if (!databaseContent) {
         console.error("未找到数据库内容:", databaseId);
         return;
     }
-    
     // 设置数据库标题
     $('databaseTitle').textContent = databaseContent.title;
-    
     // 设置副标题（如果有）
     if (databaseContent.subtitle) {
         $('databaseSubtitle').textContent = databaseContent.subtitle;
@@ -845,64 +924,106 @@ function showDatabaseMessage(databaseId) {
     } else {
         $('databaseSubtitle').style.display = 'none';
     }
-    
-    // 根据所选城市决定显示顺序
-    const isAccraSelected = selectedCity === 'Accra';
-    
-    // 设置城市名称
-    $('firstCityName').textContent = isAccraSelected ? 'Accra' : 'San Francisco';
-    $('secondCityName').textContent = isAccraSelected ? 'San Francisco' : 'Accra';
-    
-    // 清空列表
-    $('firstCityList').innerHTML = '';
-    $('secondCityList').innerHTML = '';
-    
-    // 填充第一个城市数据（根据选择的城市）
-    const firstCityData = isAccraSelected ? databaseContent.accra : databaseContent.sf;
-    if (firstCityData && firstCityData.length > 0) {
-        firstCityData.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = item;
-            $('firstCityList').appendChild(li);
+    // 城市名到 key 的映射
+    const cityKeyMap = {
+        'San Francisco': 'sf',
+        'Accra': 'accra',
+        'Singapore': 'singapore',
+        'Valencia': 'valencia'
+    };
+    // 获取当前选中城市的 key
+    const selectedCityKey = cityKeyMap[selectedCity] || selectedCity;
+    // 原始顺序
+    const allCityKeys = ['sf', 'accra', 'singapore', 'valencia'];
+    // 让选中城市排在第一个，其余顺序不变
+    const cityKeys = [selectedCityKey, ...allCityKeys.filter(key => key !== selectedCityKey)];
+    // id 映射
+    const cityIdMap = {
+        'sf': {name: 'San Francisco', list: 'sfCityList', title: 'sfCityName'},
+        'accra': {name: 'Accra', list: 'accraCityList', title: 'accraCityName'},
+        'singapore': {name: 'Singapore', list: 'singaporeCityList', title: 'singaporeCityName'},
+        'valencia': {name: 'Valencia', list: 'valenciaCityList', title: 'valenciaCityName'}
+    };
+    // --- 城市比较区域 ---
+    // 重新排序城市比较区域
+    const cityComparisonGrid = document.querySelector('.city-comparison.city-comparison-grid');
+    if (cityComparisonGrid) {
+        // 先收集所有city-data节点
+        const cityDataNodes = {};
+        cityKeys.forEach(key => {
+            const node = document.getElementById(`${key}CityData`);
+            if (node) cityDataNodes[key] = node;
         });
-    } else {
-        const li = document.createElement('li');
-        li.textContent = 'No data available';
-        li.className = 'no-data';
-        $('firstCityList').appendChild(li);
-    }
-    
-    // 填充第二个城市数据（根据选择的城市）
-    const secondCityData = isAccraSelected ? databaseContent.sf : databaseContent.accra;
-    if (secondCityData && secondCityData.length > 0) {
-        secondCityData.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = item;
-            $('secondCityList').appendChild(li);
+        // 清空原有内容
+        cityComparisonGrid.innerHTML = '';
+        // 按新顺序插入
+        cityKeys.forEach(key => {
+            if (cityDataNodes[key]) cityComparisonGrid.appendChild(cityDataNodes[key]);
         });
-    } else {
-        const li = document.createElement('li');
-        li.textContent = 'No data available';
-        li.className = 'no-data';
-        $('secondCityList').appendChild(li);
     }
-    
-    // 调整城市指标表顺序
+    // --- 城市指标表格 ---
+    // 重新排序城市指标表格
     const metricsTablesContainer = document.querySelector('.city-metrics-tables');
     if (metricsTablesContainer) {
-        const tables = metricsTablesContainer.querySelectorAll('.city-metrics-table');
-        if (tables.length === 2) {
-            // 如果选择的是Accra，将Accra的表格放在前面
-            if (isAccraSelected) {
-                // 移除现有表格
-                metricsTablesContainer.innerHTML = '';
-                // 重新添加表格（顺序变换）
-                metricsTablesContainer.appendChild(tables[1]); // Accra 表格
-                metricsTablesContainer.appendChild(tables[0]); // San Francisco 表格
-            }
-        }
+        // 收集所有.city-metrics-table
+        const allTables = Array.from(metricsTablesContainer.querySelectorAll('.city-metrics-table'));
+        // 建立城市名到table的映射
+        const tableMap = {};
+        allTables.forEach(table => {
+            const h3 = table.querySelector('h3');
+            if (h3) tableMap[h3.textContent.trim()] = table;
+        });
+        // 清空原有内容
+        metricsTablesContainer.innerHTML = '';
+        // 按新顺序插入
+        cityKeys.forEach(key => {
+            const cityName = cityIdMap[key].name;
+            if (tableMap[cityName]) metricsTablesContainer.appendChild(tableMap[cityName]);
+        });
     }
-    
+    // --- 内容渲染和高亮逻辑保持不变 ---
+    cityKeys.forEach(key => {
+        const cityData = databaseContent[key] || [];
+        const listId = cityIdMap[key].list;
+        const titleId = cityIdMap[key].title;
+        // 清空
+        $(listId).innerHTML = '';
+        // 渲染内容
+        if (cityData.length > 0) {
+            cityData.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                // 子项样式
+                if (item.trim().startsWith('→')) li.classList.add('subitem');
+                $(listId).appendChild(li);
+            });
+        } else {
+            const li = document.createElement('li');
+            li.textContent = 'No data available';
+            li.className = 'no-data';
+            $(listId).appendChild(li);
+        }
+        // 高亮所选城市
+        const titleElem = $(titleId);
+        if (selectedCityKey === key) {
+            titleElem.classList.add('selected');
+        } else {
+            titleElem.classList.remove('selected');
+        }
+        // 高亮城市指标表格的h3标题
+        const metricsTables = document.querySelectorAll('.city-metrics-table');
+        metricsTables.forEach(table => {
+            const h3 = table.querySelector('h3');
+            if (!h3) return;
+            if (h3.textContent.trim() === cityIdMap[key].name) {
+                if (selectedCityKey === key) {
+                    h3.classList.add('selected');
+                } else {
+                    h3.classList.remove('selected');
+                }
+            }
+        });
+    });
     // 显示数据库窗口
     showPage('databaseWindow');
 }
@@ -1038,8 +1159,8 @@ function showAILeakDetectionResult() {
 
 function showHighCapacityNoMatchResult() {
     showResult(
-        "Recommendation",
-        "High capacity system does not meet tech criteria."
+        "High capacity system does not meet tech criteria.",
+        "High-capacity systems may lack readiness specific to your scenario. Please click the following button and consider the moderate capacity pathway instead."
     );
 }
 
@@ -1194,8 +1315,32 @@ function showDecentralisedWaterTreatmentResult() {
 
 function showLowCapacityNoMatchResult() {
     showResult(
-        "Recommendation",
-        "Low capacity systems require foundational support."
+        "Low capacity systems require foundational support.",
+        "Current systems lack the institutional, technical, or financial foundations needed to adopt or sustain water technologies. Please focus on building basic governance structures, securing external support (e.g., NGOs, grants), and strengthening local capacity. To proceed, return to the start of the tool and reassess enabling conditions under Stage 1."
+    );
+}
+
+// 显示没有水优先级的结果
+function showNoWaterPriorityResult_Climate() {
+    showResult(
+        "Regional water priority is NOT clearly defined",
+        "Not Defined→ Return to Stage 1\n\nRegional water priority is not defined because isolated water goals cannot be meaningfully implemented without integration into broader sectoral plans. Interlinking water with climate, agriculture or urban frameworks ensures impact and coherence.\n\nConsider aligning water goals with national or regional resilience, agriculture, or climate frameworks."
+    );
+}
+
+// 显示没有水优先级的结果
+function showNoWaterPriorityResult_Consensus() {
+    showResult(
+        "Regional water priority is NOT clearly defined",
+        "Not Defined→ Return to Stage 1\n\nRegional water priority is not defined because without stakeholder agreement, priorities lack legitimacy and risk poor adoption of emerging technology. Consensus ensures alignment, user engagement and relevance to local needs.\n\nConsider facilitating multi-stakeholder dialogues to co-develop shared water priorities."
+    );
+}
+
+// 显示没有地方权力结果
+function showNoDecentralisedGovernanceResult() {
+    showResult(
+        "Defining Governance Framework",
+        "Local or municipal authorities currently lack the policy control or financial empowerment needed to implement decentralised solutions. Strengthening institutional frameworks and enabling budget authority is essential before progressing. Therefore, return to Stage 1."
     );
 }
 

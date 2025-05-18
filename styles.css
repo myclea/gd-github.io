@@ -309,6 +309,16 @@ body {
     font-size: 20px;
 }
 
+.data-list li.subitem::before {
+    content: none;
+}
+
+.data-list li.subitem {
+    color: var(--text-secondary);
+    margin-left: 18px;
+    font-size: 15px;
+}
+
 /* 技术选择器页面样式 */
 .capacity-selection {
     text-align: center;
@@ -544,8 +554,10 @@ p {
 }
 
 .city-metrics-tables {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 24px 24px;
     margin-top: 20px;
 }
 
@@ -617,6 +629,12 @@ th {
 
 .notes-references li {
     margin-bottom: 8px;
+}
+
+/* 让数据库页底部References中的a链接文字为黑色 */
+.notes-references a {
+    color: #222;
+    text-decoration: underline;
 }
 
 /* 响应式调整 */
@@ -794,4 +812,81 @@ th {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     margin: 20px 0;
+}
+
+/* Toolkit Introduction 样式 */
+.toolkit-intro {
+    background: #fafdff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(33,150,243,0.04);
+    padding: 28px 24px 22px 24px;
+    margin: 28px auto 0 auto;
+    max-width: 700px;
+    text-align: left;
+    border: none;
+    border-top: 4px solid var(--primary);
+}
+.toolkit-intro h2 {
+    color: var(--primary);
+    font-size: 22px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.toolkit-intro p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: 14px;
+}
+.toolkit-intro ol {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+.toolkit-intro li {
+    margin-bottom: 7px;
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.7;
+}
+.toolkit-intro strong {
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+/* Home按钮样式 */
+.stakeholder-button.home,
+.modern-button.home {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    border: 1.5px solid var(--primary);
+    margin-left: 10px;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s;
+}
+.stakeholder-button.home:hover,
+.modern-button.home:hover {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.city-title.selected {
+    color: var(--primary);
+}
+
+.city-comparison.city-comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 24px 24px;
+    margin: 30px 0;
+}
+@media (max-width: 900px) {
+    .city-comparison.city-comparison-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+}
+
+.city-metrics-table h3.selected {
+    color: var(--primary);
 } 

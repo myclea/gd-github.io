@@ -7,7 +7,15 @@ const DATABASE_CONTENT = {
         "accra": [
             "Community Water and Sanitation Agency (CWSA)",
             "Ghana Water Company",
-            "WRC"
+            "Water Resources Commission (WRC)"
+        ],
+        "singapore": [
+            "Public Utilities Board (PUB)",
+            "Keppel",
+            "Binnies"
+        ],
+        "valencia": [
+            "Global Omnium (GO)"
         ]
     },
     // 政策制定者和监管者
@@ -20,20 +28,35 @@ const DATABASE_CONTENT = {
         "accra": [
             "Public Utility Regulatory Commission (PURC)",
             "Ministry of Sanitation and Water Resources",
-            "EPA"
+            "Environmental Protection Agency (EPA)"
+        ],
+        "singapore": [
+            "Ministry of Sustainability and the Environment of Singapore"
+        ],
+        "valencia": [
+            "Valencian Institute of Cooperation & Innovation (IVACE+i)",
+            "Jucar River Authority (CHJ)"
         ]
     },
     // 创新者和企业家
     "database_c": {
         "title": " Innovators & Entrepreneurs",
         "sf": ["Epic Cleantec", "Fluid Analytics"],
-        "accra": ["Pure Home Water", "Waterbits"]
+        "accra": ["Pure Home Water", "Waterbits"],
+        "singapore": ["Xylem", "Wateroam"],
+        "valencia": ["Idrica & Xylem Vue", "Auravant", "Agrow Analytics", "Fivecomm"]
     },
     // 投资者和加速器
     "database_d": {
         "title": " Investors & Accelerators",
         "sf": ["Imagine H20", "Echo River Capital"],
-        "accra": []
+        "accra": [],
+        "singapore": [
+            "National University of Singapore (NUS)",
+            "Nanyang Technological University (NTU)",
+            "PUB"
+        ],
+        "valencia": ["GoHub", "Clean Connect VLC"]
     },
     // 支持性利益相关者（如非政府组织、学术界、公民）
     "database_e": {
@@ -42,12 +65,22 @@ const DATABASE_CONTENT = {
         "sf": ["Stanford University", "UC Berkeley", "Pacific Inst."],
         "accra": [
             "University of Ghana",
-            "CSIR",
-            "KNUST",
+            "Council for Scientific and Industrial Research (CSIR)",
+            "Kwame Nkrumah University of Science and Technology (KNUST)",
             "WaterAid",
             "UNICEF",
-            "CONIWAS GBDA",
-            "NASPWP"
+            "Coalition of NGOs in Water and Sanitation (CONIWAS) Ghana Borehole Drillers Association (GBDA)",
+            "National Association of Sachet & Packaged Water Producers (NASPWP)"
+        ],
+        "singapore": [
+            "NTU",
+            "NUS",
+            "World Trade Organization (WTO)",
+            "Singapore Water Association (SWA)"
+        ],
+        "valencia": [
+            "Polytechnic University of Valencia (UPV; DIHMA & IIAMA)",
+            "Spanish Water Technology Platform (PTEA)"
         ]
     },
     // 内部级治理促成者 - 支持新政策和法规的实体
@@ -55,14 +88,15 @@ const DATABASE_CONTENT = {
         "title": "Intra-level Governance enablers",
         "sf": [
             "Address regulatory barriers and launch new policies that support new technologies and their procurement processes",
-            "Utilities to support and promote the new policies"
+            "→ Utilities to support and promote the new policies"
         ],
-        "accra": [
-            "Strengthening governance and policy enforcement",
-            "Developing a stable regulatory framework",
-            "Adopting transparent procurement practices",
-            "Fostering public-private partnerships for resource mobilisation"
-        ]
+        "accra": ["Strengthening governance and policy enforcement"],
+        "singapore": [
+            "Strong public trust and government funding",
+            "Dominant governance and strategic leadership",
+            "Clear long-term strategic goals and resilience planning integrated into national policy agendas"
+        ],
+        "valencia": []
     },
     // 内部级水创业促成者 - 支持水领域创新的实体
     "database_g": {
@@ -72,7 +106,17 @@ const DATABASE_CONTENT = {
             "Start-ups/innovators to improve storytelling and marketing capabilities to attract more attention and resources",
             "Have international presence (e.g., Asia, India) to understand market dynamics and provide tailored support to startups"
         ],
-        "accra": ["Incentivising employee innovation and creativity (if through piloting)"]
+        "accra": ["Incentivising employee innovation and creativity "],
+        "singapore": [
+            "Support from academic programmes (e.g., NUS Hydropreneur Programme) providing funding and visibility through awards",
+            "Long-term investment in knowledge infrastructure and translation of research into application"
+        ],
+        "valencia": [
+            "Investment fund for technology startups (GoHub) as a complement to promote technology transfer",
+            "Valencia's innovation actors (e.g., GoHub, Idrica) operate autonomously within a connected ecosystem, enabling flexible startup scaling and decentralised experimentation",
+            "Decentralised innovation governance allows regional actors like GoHub and Clean Connect VLC to independently scale startups without centralised control",
+            "Entrepreneurial ecosystem prioritises open innovation and rapid iteration, attracting both domestic and international innovators "
+        ]
     },
     // 跨级个人促成者 - 支持个人层面水资源管理的实体
     "database_h": {
@@ -87,11 +131,22 @@ const DATABASE_CONTENT = {
         ],
         "accra": [
             "Adopting transparent procurement practices",
-            "Strong leadership commitment to innovation",
             "Incentivising employee innovation and creativity (if through piloting)",
-            "Providing financial incentives for smart water technologies",
-            "Fostering public-private partnerships for resource mobilisation",
             "Conducting training for staff"
+        ],
+        "singapore": [
+            "Dedicated global collaboration platforms (e.g., Singapore International Water Week)",
+            "Structured governmental support for scaling innovations internationally",
+            "Enhanced storytelling and marketing training for water innovators, enhancing public visibility, stakeholder engagement, and investor attraction",
+            "Facilitate streamlined pathways from academic research to market commercialization through structured programs and targeted government incentives",
+            "Establish innovation-friendly regulatory sandboxes, enabling startups and utilities to pilot emerging water technologies with reduced administrative barriers",
+            "Promote collaborative frameworks connecting global innovation ecosystems, leveraging Singapore's international positioning to accelerate local technology deployment and scaling",
+            "Strengthen alignment between academic institutions, utilities, and industry accelerators to optimize resources and accelerate the innovation adoption cycle"
+        ],
+        "valencia": [
+            "Strategic support from utilities to create and support spin-offs like Idrica ",
+            "Technological diversification (5G, satellites, AI) across water systems to diversify water technologies ",
+            "Adoption of localised technology through regional innovation centres and testbeds "
         ]
     },
     // 跨级多方利益相关者促成者 - 支持多方合作的实体
@@ -112,21 +167,47 @@ const DATABASE_CONTENT = {
             "Different rates for water consumption depending on the activity (higher rates for industrial use vs residential use)"
         ],
         "accra": [
-            "Utilising digital tools and data for monitoring performance",
+            "Fostering public-private partnerships for resource mobilisation",
             "Implementing change management with early stakeholder engagement (in the context of utilities)",
-            "Enhancing inter-agency and cross-sector collaboration",
-            "Collaborating with international experts and institutions",
-            "Ensuring access to dedicated funding for water innovation projects",
             "Investing in critical infrastructure upgrades",
+            "Strong leadership commitment to innovation",
+            "Developing a stable regulatory framework",
+            "Providing financial incentives for smart water technologies",
             "Streamlining approval processes for water projects",
-            "Establishing robust performance and feedback loops",
-            "Focusing on sustainability in all operational practices",
-            "Promoting a culture of continuous improvement and innovation",
-            "Facilitating knowledge sharing across stakeholders",
             "Leveraging policy incentives to drive technology adoption",
-            "Encouraging data-driven decision-making in water management",
-            "Creating platforms for multi-stakeholder dialogue",
-            "Fostering innovation through public awareness and education"
+            "Utilising digital tools and data for monitoring performance",
+            "→ Encouraging data-driven decision-making in water management",
+            "Enhancing inter-agency and cross-sector collaboration",
+            "→ Collaborating with international experts and institutions",
+            "Ensuring access to dedicated funding for water innovation projects",
+            "Promoting a culture of continuous improvement and innovation",
+            "→ Facilitating knowledge sharing across stakeholders",
+            "→ Creating platforms for multi-stakeholder dialogue"
+        ],
+        "singapore": [
+            "Multidisciplinary ecosystems facilitated by implementation agencies (PUB)",
+            "Strategic international media and advocacy campaigns",
+            "Streamlined administrative processes and improved data-sharing frameworks",
+            "Government initiatives using real-time monitoring, IoT, AI-driven automation",
+            "Innovators providing accessible demonstration projects showcasing proven technological capabilities and effectiveness to government and public utilities",
+            "Entrepreneur-led international partnerships and participation in global innovation competitions (e.g., Earthshot Prize, Uplink) to drive awareness, foster global networking, and attract cross-border investment and scaling opportunities",
+            "Innovators contributing directly to policy and strategy through targeted consultations and direct engagements with regulators and policymakers, demonstrating industry insights to shape supportive regulatory frameworks",
+            "Comprehensive national water strategy (public-private partnerships, infrastructure financing)",
+            "Strong government-industry-academia collaboration, established public trust",
+            "Strategic emphasis on interdisciplinary and cross-sector collaborations (water-energy nexus, integrated urban systems)",
+            "Dedicated governmental taskforces bridging utilities, academia, private sector, and NGOs to continuously refine and improve innovation and regulatory frameworks"
+        ],
+        "valencia": [
+            "Openness to new water management technologies driven by institutional innovation",
+            "Application of EU Water Framework Directive promoting harmonised policy uptake ",
+            "Transparency in hydrological data and real-time information updates",
+            "Public sector Investment instruments (e.g. infrastructure funding, digitilisation budgets and irrigation subsidies)",
+            "Collaboration platforms and regional innovation testbeds connect government, academia, and industry to co-develop and scale water solutions",
+            "Cross-sector startup acceleration led by GoHub and Clean Connect VLC",
+            "Public-private partnership models (PPP) and data-sharing mechanisms",
+            "Development of free-access software and modernisation of infrastructure",
+            "Digitalization of water information systems across sectors",
+            "Technological platforms supporting circular economy integration"
         ]
     },
     // 支持性促成者 - 通过意识和教育支持水资源管理的实体
@@ -137,8 +218,8 @@ const DATABASE_CONTENT = {
             "Public awareness and acceptance for new technologies/innovation",
             "Universities to provide test beds and pilot opportunities",
             "Universities to leverage their conveyance power and bring together different actors to facilitate collaboration and knowledge sharing",
-            "Universities to bring water experts with those from adjacent fields (cross-sector collaboration)",
-            "Leverage an informal network of professionals who complement each other's skills and contributions",
+            "→ Universities to bring water experts with those from adjacent fields (cross-sector collaboration)",
+            "→ Leverage an informal network of professionals who complement each other's skills and contributions",
             "Universities to connect innovators with private sources",
             "Stamp of approval (endorsement) of good/innovative ideas",
             "Learn from successes in other sectors, like energy, and apply those lessons to water",
@@ -150,6 +231,28 @@ const DATABASE_CONTENT = {
             "Engaging communities in sustainable water practices",
             "Integrating local knowledge into decision-making processes",
             "Fostering innovation through public awareness and education"
+        ],
+        "singapore": [
+            "Targeted support mechanisms for research-based innovation scaling",
+            "Mission-driven applied research by universities supporting national priorities",
+            "Affordable sanitation solutions through private-sector innovation and strong NGO-government partnerships (from NGO to all)",
+            "Universities proactively facilitating international research partnerships and knowledge-sharing exchanges, enhancing local expertise through global exposure and reciprocal learning"
+        ],
+        "valencia": [
+            "Academic leadership in water planning and decision support (e.g., Aquatool or TETIS model at UPV)",
+            "Strategic dissemination of water innovation and support tools through professional associations and collaborative networks",
+            "Cross-sector knowledge sharing through Living Labs and technical universities ",
+            "Environmental indicators tied to performance of local water governance ",
+            "Involvement in European research programs and international university networks that offer institutional support and funding for long-term water innovation projects",
+            "Strong linkage between academic R&D and commercialization pathways through joint ventures and tech transfer programs",
+            "Hydrological planning every six years (knowledge structuring and forecasting)",
+            "Legislative incentives encouraging technology adoption and water reuse "
         ]
     }
 }; 
+
+// 为所有 database_a ~ database_k 补全 singapore 和 valencia 字段，若无内容则为 []。
+Object.keys(DATABASE_CONTENT).forEach(key => {
+    if (!DATABASE_CONTENT[key].singapore) DATABASE_CONTENT[key].singapore = [];
+    if (!DATABASE_CONTENT[key].valencia) DATABASE_CONTENT[key].valencia = [];
+}); 
