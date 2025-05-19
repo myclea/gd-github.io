@@ -69,7 +69,8 @@ const DATABASE_CONTENT = {
             "Kwame Nkrumah University of Science and Technology (KNUST)",
             "WaterAid",
             "UNICEF",
-            "Coalition of NGOs in Water and Sanitation (CONIWAS) Ghana Borehole Drillers Association (GBDA)",
+            "Coalition of NGOs in Water and Sanitation (CONIWAS) ",
+            "Ghana Borehole Drillers Association (GBDA)",
             "National Association of Sachet & Packaged Water Producers (NASPWP)"
         ],
         "singapore": [

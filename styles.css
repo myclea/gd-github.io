@@ -604,7 +604,10 @@ th {
     background-color: #E8F5E9;
     color: var(--success);
 }
-
+.level.tohigh {
+    background-color: #d2e209;
+    color: var(--success);
+}
 /* 指导标准表格 */
 .guidance-criteria {
     margin-top: 30px;

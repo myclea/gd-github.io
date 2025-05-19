@@ -415,7 +415,17 @@ function showTechBackToStage2Btn() {
     if (backBtn) {
         backBtn.style.display = '';
         backBtn.textContent = '← Back to the beginning of Stage 2';
-        backBtn.onclick = function() { secondTechQuestion(); };
+        backBtn.onclick = function() {
+            // 重置技术流程历史和步骤
+            techHistory = [];
+            techStep = 1;
+            // 隐藏能力选择，显示问题卡片
+            if ($('capacitySelection')) $('capacitySelection').style.display = 'none';
+            if ($('techQuestionCard')) $('techQuestionCard').style.display = 'block';
+            if ($('resultDisplay')) $('resultDisplay').style.display = 'none';
+            // 回到water strategy问题页
+            secondTechQuestion();
+        };
     }
 }
 
@@ -638,6 +648,55 @@ function showResult(title, message) {
                 </li>
                 <li><strong>Plateau of Productivity:</strong> Where the technology reaches mainstream adoption and provides measurable benefits.</li>
             </ol>
+            <div style="margin-top: 20px;">
+                <h2> References: </h2>
+                <ol style="margin-left:18px;margin-bottom:14px;">
+                    <li> Gartner (2023). Understanding Gartner's Hype Cycle. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle" target="_blank">https://www.gartner.com/en/research/methodologies/gartner-hype-cycle (Accessed: 14 May 2025)</a></li>
+                    <li> European Commission (2020). Strategic Foresight Report 2020. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://ec.europa.eu/info/sites/default/files/strategic_foresight_report_2020.pdf" target="_blank">https://ec.europa.eu/info/sites/default/files/strategic_foresight_report_2020.pdf (Accessed: 14 May 2025)</a></li>
+                </ol>
+             </div>
+             <div style="margin-top: 20px;">
+               <img src="./WechatIMG632.jpg" alt="Hype Cycle" style="width: 100%; height: auto;">
+             </div>
+               <div class="guidance-criteria">
+                    <h2>Cost & Timeline matrix</h2>
+                    <table class="criteria-table">
+                        <tr>
+                            <th></th>
+                            <th>Low</th>
+                            <th>Moderate</th>
+                            <th>High</th>
+                        </tr>
+                        <tr>
+                            <td>Cost of Adoption</td>
+                            <td><$50,000 [3] Often donor-funded, minimal setup</td>
+                            <td>$50,000 – $500,000 Moderate infrastructure, scalable kits</td>
+                            <td>> >$500,000 [4] High capital, advanced digital systems</td>
+                        </tr>
+                    </table>
+                    <div style="margin-top: 20px;">
+                     <p>3. OECD (2022). Financing Water Supply, Sanitation and Flood Protection: Challenges in EU Member States and Policy Options. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.oecd.org/water/financing-water-supply-sanitation.html" target="_blank">https://www.oecd.org/water/financing-water-supply-sanitation.html (Accessed: 14 May 2025)</a></p>
+                     <p>4. World Bank (2021). Costing Water Services for Effective Utility Management. Available at:  <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.worldbank.org/en/topic/water/publication/costing-water-services" target="_blank">https://www.worldbank.org/en/topic/water/publication/costing-water-services (Accessed: 14 May 2025)</a></p>
+                    </div>
+                         <table class="criteria-table">
+                        <tr>
+                            <th></th>
+                            <th>Short</th>
+                            <th>Medium</th>
+                            <th>Long</th>
+                        </tr>
+                        <tr>
+                            <td>Implementation Timeline</td>
+                            <td><12 months [5] Deployable with minimal approva</td>
+                            <td>12–36 months Depends on permitting, integration, or scaling</td>
+                            <td> >36 months [6] Complex design, construction, and integration</td>
+                        </tr>
+                    </table>
+                       <div style="margin-top: 20px;">
+                     <p>5. UN Water (2020). Water and Sanitation: Implementation Progress and Lessons Learned. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.unwater.org/publications " target="_blank">https://www.unwater.org/publications (Accessed: 14 May 2025)</a></p>
+                     <p>6. World Health Organization (WHO) (2017). Guidelines for Drinking-Water Quality: Implementation Framework. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.who.int/publications/i/item/9789241549950" target="_blank">https://www.who.int/publications/i/item/9789241549950 (Accessed: 14 May 2025)</a></p>
+                    </div>
+                </div>
         `;
         $('resultDisplay').appendChild(guidanceBox);
     } else {
@@ -651,14 +710,33 @@ function showResult(title, message) {
         $('resultDisplay').appendChild(messageElem);
     }
     
-    // 添加"Go Back to Capacity Pathway"按钮
+    // 添加操作按钮
     const buttonContainer = document.createElement('div');
     buttonContainer.style.marginTop = '30px';
-    const startOverBtn = document.createElement('button');
-    startOverBtn.className = 'modern-button primary';
-    startOverBtn.textContent = 'Go Back to Capacity Pathway';
-    startOverBtn.onclick = showCapacitySelection;
-    buttonContainer.appendChild(startOverBtn);
+    const actionBtn = document.createElement('button');
+    actionBtn.className = 'modern-button primary';
+    // 判断不同情况
+    if (
+        title === 'Moderate capacity not aligned to current priority.' ||
+        title === 'High capacity system does not meet tech criteria.'
+    ) {
+        actionBtn.textContent = 'Go Back to Capacity Pathway';
+        actionBtn.onclick = showCapacitySelection;
+    } else if (
+        title === 'Low capacity systems require foundational support.' ||
+        (typeof message === 'string' && (
+            message.includes('To proceed, return to the start of the tool') ||
+            message.startsWith('Not Defined→ Return to Stage 1') ||
+            message.trim().endsWith('Therefore, return to Stage 1.')
+        ))
+    ) {
+        actionBtn.textContent = 'Start Over';
+        actionBtn.onclick = returnToCitySelection;
+    } else {
+        actionBtn.textContent = 'Go Back to Capacity Pathway';
+        actionBtn.onclick = showCapacitySelection;
+    }
+    buttonContainer.appendChild(actionBtn);
     $('resultDisplay').appendChild(buttonContainer);
 }
 
@@ -1256,8 +1334,8 @@ function showNatureBasedSolutionsResult() {
 
 function showModerateCapacityNoMatchResult() {
     showResult(
-        "Recommendation",
-        "Moderate capacity not aligned to current priority."
+        "Moderate capacity not aligned to current priority.",
+        "Moderate capacity is not suitable for addressing the given priority. Please click the following button to reassess capacity conditions or clarify the regional priority for a suitable technology to be recommended."
     );
 }
 
