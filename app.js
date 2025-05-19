@@ -671,7 +671,7 @@ function showResult(title, message) {
                             <td>Cost of Adoption</td>
                             <td><$50,000 [3] Often donor-funded, minimal setup</td>
                             <td>$50,000 – $500,000 Moderate infrastructure, scalable kits</td>
-                            <td>> >$500,000 [4] High capital, advanced digital systems</td>
+                            <td> >$500,000 [4] High capital, advanced digital systems</td>
                         </tr>
                     </table>
                     <div style="margin-top: 20px;">
