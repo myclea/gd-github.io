@@ -599,6 +599,7 @@ th {
     background-color: #FFF8E1;
     color: #FF8F00;
 }
+
 .level.high {
     background-color: #E8F5E9;
     color: var(--success);
@@ -607,6 +608,7 @@ th {
     background-color: #e6eabb;
     color: var(--success);
 }
+
 /* 指导标准表格 */
 .guidance-criteria {
     margin-top: 30px;
@@ -619,6 +621,7 @@ th {
 .notes-references {
     margin-top: 40px;
 }
+
 
 .notes-references h3 {
     margin-bottom: 15px;
