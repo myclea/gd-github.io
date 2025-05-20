@@ -755,7 +755,6 @@ function showResult(title, message) {
     $('resultDisplay').appendChild(buttonContainer);
 }
 
-
 // 获取技术详细信息
 function getTechDetails(techName) {
     const techDetails = {
