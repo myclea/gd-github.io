@@ -515,8 +515,8 @@ function showNoWaterPriorityResult() {
 // 显示需要重建能力的结果
 function showRebuildCapacityResult() {
     showResult(
-        "Recommendation",
-        "Rebuild capacity for decentralised governance."
+        "Rebuild capacity for decentralised governance",
+        "Local or municipal authorities currently lack the policy control or financial empowerment needed to implement decentralised solutions. Strengthening institutional frameworks and enabling budget authority is essential before progressing. Therefore, return to Stage 1."
     );
 }
 
