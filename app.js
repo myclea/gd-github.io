@@ -659,7 +659,8 @@ function showResult(title, message) {
                <img src="./WechatIMG632.jpg" alt="Hype Cycle" style="width: 100%; height: auto;">
              </div>
                <div class="guidance-criteria">
-                    <h2>Cost Matrix  & Time Matrix</h2>
+                    <h2>Cost Matrix</h2>
+                
                     <table class="criteria-table">
                         <tr>
                             <th></th>
@@ -684,6 +685,7 @@ function showResult(title, message) {
                      <p>3. OECD (2022). Financing Water Supply, Sanitation and Flood Protection: Challenges in EU Member States and Policy Options. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.oecd.org/water/financing-water-supply-sanitation.html" target="_blank">https://www.oecd.org/water/financing-water-supply-sanitation.html </a>(Accessed: 14 May 2025)</p>
                      <p>4. World Bank (2021). Costing Water Services for Effective Utility Management. Available at:  <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.worldbank.org/en/topic/water/publication/costing-water-services" target="_blank">https://www.worldbank.org/en/topic/water/publication/costing-water-services </a>(Accessed: 14 May 2025)</p>
                     </div>
+                       <h2>Time Matrix</h2>
                          <table class="criteria-table">
                         <tr>
                             <th></th>
