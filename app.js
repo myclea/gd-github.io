@@ -1439,7 +1439,6 @@ function showNoDecentralisedGovernanceResult() {
     );
 }
 
-
 // 页面加载时初始化
 document.addEventListener('DOMContentLoaded', function() {
     // 显示城市选择页面
