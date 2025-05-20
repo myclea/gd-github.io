@@ -637,29 +637,29 @@ function showResult(title, message) {
             <h2 style="color:#1ca0e3;font-size:22px;margin-bottom:12px;font-weight:600;">Guidance Criteria</h2>
             <h3 style="color:#1976D2;font-size:18px;margin-bottom:10px;font-weight:600;">Hype Cycle</h3>
             <p style="color:#555;line-height:1.7;margin-bottom:16px;">The Hype Cycle is a widely recognised model used to analyse the maturity, adoption, and application of emerging technologies
-            <a href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle" target="_blank" style="color:#1ca0e3;text-decoration:underline;">[Gartner (2023)]</a>.
+            <a href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle" target="_blank" style="color:#1ca0e3;text-decoration:underline;"></a>¹.
             It categorises innovations through five key stages:</p>
             <ol style="margin-left:18px;margin-bottom:14px;">
                 <li><strong>Technology Trigger:</strong> Marks the emergence of a new technological innovation. Often initiated by breakthrough research or early proof of concept. Few functional products exist yet, but media interest starts to grow.</li>
                 <li><strong>Peak of Inflated Expectations:</strong> Where initial enthusiasm and overpromising create a surge in interest in emerging technology.</li>
                 <li><strong>Trough of Disillusionment:</strong> Where expectations decrease as real-world challenges emerge. Some developers stop research of technology yet improved second generation solutions have potential to emerge.</li>
                 <li><strong>Slope of Enlightenment:</strong> Practical applications become clearer, more successful cases emerge due to better understanding of benefits, risks and implementation strategies
-                <a href="https://ec.europa.eu/info/sites/default/files/strategic_foresight_report_2020.pdf" target="_blank" style="color:#1ca0e3;text-decoration:underline;">[European Commission (2020)]</a>.
+                <a href="https://ec.europa.eu/info/sites/default/files/strategic_foresight_report_2020.pdf" target="_blank" style="color:#1ca0e3;text-decoration:underline;"></a>².
                 </li>
                 <li><strong>Plateau of Productivity:</strong> Where the technology reaches mainstream adoption and provides measurable benefits.</li>
             </ol>
             <div style="margin-top: 20px;">
                 <h2> References: </h2>
                 <ol style="margin-left:18px;margin-bottom:14px;">
-                    <li> Gartner (2023). Understanding Gartner's Hype Cycle. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle" target="_blank">https://www.gartner.com/en/research/methodologies/gartner-hype-cycle (Accessed: 14 May 2025)</a></li>
-                    <li> European Commission (2020). Strategic Foresight Report 2020. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://ec.europa.eu/info/sites/default/files/strategic_foresight_report_2020.pdf" target="_blank">https://ec.europa.eu/info/sites/default/files/strategic_foresight_report_2020.pdf (Accessed: 14 May 2025)</a></li>
+                    <li> Gartner (2023). Understanding Gartner's Hype Cycle. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle" target="_blank">https://www.gartner.com/en/research/methodologies/gartner-hype-cycle </a>(Accessed: 14 May 2025)</li>
+                    <li> European Commission (2020). Strategic Foresight Report 2020. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://ec.europa.eu/info/sites/default/files/strategic_foresight_report_2020.pdf" target="_blank">https://ec.europa.eu/info/sites/default/files/strategic_foresight_report_2020.pdf </a>(Accessed: 14 May 2025)</li>
                 </ol>
              </div>
              <div style="margin-top: 20px;">
                <img src="./WechatIMG632.jpg" alt="Hype Cycle" style="width: 100%; height: auto;">
              </div>
                <div class="guidance-criteria">
-                    <h2>Cost & Timeline matrix</h2>
+                    <h2>Cost Matrix  & Time Matrix</h2>
                     <table class="criteria-table">
                         <tr>
                             <th></th>
@@ -669,14 +669,20 @@ function showResult(title, message) {
                         </tr>
                         <tr>
                             <td>Cost of Adoption</td>
-                            <td><$50,000 [3] Often donor-funded, minimal setup</td>
-                            <td>$50,000 – $500,000 Moderate infrastructure, scalable kits</td>
-                            <td> >$500,000 [4] High capital, advanced digital systems</td>
+                            <td><$50,000³
+                            <p>Often donor-funded, minimal setup</p>
+                            </td>
+                            <td>$50,000 – $500,000 
+                            <p>Moderate infrastructure, scalable kits</p>
+                            </td>
+                            <td> >$500,000⁴
+                            <p>High capital, advanced digital systems</p>
+                             </td>
                         </tr>
                     </table>
                     <div style="margin-top: 20px;">
-                     <p>3. OECD (2022). Financing Water Supply, Sanitation and Flood Protection: Challenges in EU Member States and Policy Options. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.oecd.org/water/financing-water-supply-sanitation.html" target="_blank">https://www.oecd.org/water/financing-water-supply-sanitation.html (Accessed: 14 May 2025)</a></p>
-                     <p>4. World Bank (2021). Costing Water Services for Effective Utility Management. Available at:  <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.worldbank.org/en/topic/water/publication/costing-water-services" target="_blank">https://www.worldbank.org/en/topic/water/publication/costing-water-services (Accessed: 14 May 2025)</a></p>
+                     <p>3. OECD (2022). Financing Water Supply, Sanitation and Flood Protection: Challenges in EU Member States and Policy Options. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.oecd.org/water/financing-water-supply-sanitation.html" target="_blank">https://www.oecd.org/water/financing-water-supply-sanitation.html </a>(Accessed: 14 May 2025)</p>
+                     <p>4. World Bank (2021). Costing Water Services for Effective Utility Management. Available at:  <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.worldbank.org/en/topic/water/publication/costing-water-services" target="_blank">https://www.worldbank.org/en/topic/water/publication/costing-water-services </a>(Accessed: 14 May 2025)</p>
                     </div>
                          <table class="criteria-table">
                         <tr>
@@ -687,14 +693,21 @@ function showResult(title, message) {
                         </tr>
                         <tr>
                             <td>Implementation Timeline</td>
-                            <td><12 months [5] Deployable with minimal approva</td>
-                            <td>12–36 months Depends on permitting, integration, or scaling</td>
-                            <td> >36 months [6] Complex design, construction, and integration</td>
+                            <td><12 months⁵
+                            <p>Deployable with minimal approva</p>
+                            
+                             </td>
+                            <td>12–36 months
+                            <p>Depends on permitting, integration, or scaling</p>
+                             </td>
+                            <td> >36 months⁶ 
+                            <p>Complex design, construction, and integration</p>
+                            </td>
                         </tr>
                     </table>
                        <div style="margin-top: 20px;">
-                     <p>5. UN Water (2020). Water and Sanitation: Implementation Progress and Lessons Learned. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.unwater.org/publications " target="_blank">https://www.unwater.org/publications (Accessed: 14 May 2025)</a></p>
-                     <p>6. World Health Organization (WHO) (2017). Guidelines for Drinking-Water Quality: Implementation Framework. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.who.int/publications/i/item/9789241549950" target="_blank">https://www.who.int/publications/i/item/9789241549950 (Accessed: 14 May 2025)</a></p>
+                     <p>5. UN Water (2020). Water and Sanitation: Implementation Progress and Lessons Learned. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.unwater.org/publications " target="_blank">https://www.unwater.org/publications </a>(Accessed: 14 May 2025)</p>
+                     <p>6. World Health Organization (WHO) (2017). Guidelines for Drinking-Water Quality: Implementation Framework. Available at: <a style="color:#1ca0e3;text-decoration:underline;" href="https://www.who.int/publications/i/item/9789241549950" target="_blank">https://www.who.int/publications/i/item/9789241549950 </a>(Accessed: 14 May 2025)</p>
                     </div>
                 </div>
         `;
@@ -731,7 +744,9 @@ function showResult(title, message) {
         ))
     ) {
         actionBtn.textContent = 'Start Over';
-        actionBtn.onclick = returnToCitySelection;
+        actionBtn.onclick = function() {
+            window.location.reload();
+        };
     } else {
         actionBtn.textContent = 'Go Back to Capacity Pathway';
         actionBtn.onclick = showCapacitySelection;
@@ -1418,7 +1433,7 @@ function showNoWaterPriorityResult_Consensus() {
 // 显示没有地方权力结果
 function showNoDecentralisedGovernanceResult() {
     showResult(
-        "Defining Governance Framework",
+        "Rebuild capacity for decentralised governance",
         "Local or municipal authorities currently lack the policy control or financial empowerment needed to implement decentralised solutions. Strengthening institutional frameworks and enabling budget authority is essential before progressing. Therefore, return to Stage 1."
     );
 }
