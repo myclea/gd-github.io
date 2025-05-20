@@ -1438,7 +1438,6 @@ function showNoDecentralisedGovernanceResult() {
         "Local or municipal authorities currently lack the policy control or financial empowerment needed to implement decentralised solutions. Strengthening institutional frameworks and enabling budget authority is essential before progressing. Therefore, return to Stage 1."
     );
 }
-
 // 页面加载时初始化
 document.addEventListener('DOMContentLoaded', function() {
     // 显示城市选择页面
