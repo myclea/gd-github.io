@@ -1460,7 +1460,6 @@ function showNoWaterPriorityResult_Consensus() {
     );
 }
 
-
 // 显示没有地方权力结果
 function showNoDecentralisedGovernanceResult() {
     showResult(

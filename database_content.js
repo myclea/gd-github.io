@@ -18,6 +18,7 @@ const DATABASE_CONTENT = {
             "Global Omnium (GO)"
         ]
     },
+
     // 政策制定者和监管者
     "database_b": {
         "title": "Policy-makers & Regulators",
