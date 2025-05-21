@@ -555,6 +555,8 @@ function showResult(title, message) {
     titleText.style.margin = '10px 0';
     titleContainer.appendChild(titleText);
     
+    $('resultDisplay').appendChild(titleContainer);
+    
     // 如果是推荐技术结果，添加副标题显示技术名称
     if (title.includes("Recommended") && techName) {
         const subtitleElement = document.createElement('h3');
@@ -570,8 +572,6 @@ function showResult(title, message) {
         subtitleElement.style.textAlign = 'left';
         $('resultDisplay').appendChild(subtitleElement);
     }
-    
-    $('resultDisplay').appendChild(titleContainer);
     
     // 如果是特殊no water strategy内容，分段渲染
     if (message.startsWith('Not Defined→ Return to Stage 1')) {
