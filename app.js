@@ -555,6 +555,22 @@ function showResult(title, message) {
     titleText.style.margin = '10px 0';
     titleContainer.appendChild(titleText);
     
+    // 如果是推荐技术结果，添加副标题显示技术名称
+    if (title.includes("Recommended") && techName) {
+        const subtitleElement = document.createElement('h3');
+        subtitleElement.textContent = techName;
+        subtitleElement.className = 'subtitle';
+        subtitleElement.style.color = 'var(--primary)';
+        subtitleElement.style.fontSize = '18px';
+        subtitleElement.style.marginTop = '15px';
+        subtitleElement.style.marginBottom = '20px';
+        subtitleElement.style.fontWeight = '500';
+        subtitleElement.style.display = 'block';
+        subtitleElement.style.clear = 'both';
+        subtitleElement.style.textAlign = 'left';
+        $('resultDisplay').appendChild(subtitleElement);
+    }
+    
     $('resultDisplay').appendChild(titleContainer);
     
     // 如果是特殊no water strategy内容，分段渲染
@@ -1086,11 +1102,24 @@ function showDatabaseMessage(databaseId) {
         // 渲染内容
         if (cityData.length > 0) {
             cityData.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                // 子项样式
-                if (item.trim().startsWith('→')) li.classList.add('subitem');
-                $(listId).appendChild(li);
+                // 检查是否是标题（数字+点开头）
+                if (/^\d+\./.test(item.trim())) {
+                    // 创建h3标题元素
+                    const h3 = document.createElement('h3');
+                    h3.textContent = item;
+                    h3.style.margin = '15px 0 10px 0';
+                    h3.style.color = '#555';
+                    h3.style.fontSize = '16px';
+                    h3.style.fontWeight = '700';
+                    $(listId).appendChild(h3);
+                } else {
+                    // 常规列表项
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    // 子项样式
+                    if (item.trim().startsWith('→')) li.classList.add('subitem');
+                    $(listId).appendChild(li);
+                }
             });
         } else {
             const li = document.createElement('li');
@@ -1191,7 +1220,7 @@ function highDigitalTransformation2() {
 
 function showDigitalTwinResult() {
     showResult(
-        "✅ Recommended Technology",
+        "Recommended Technology",
         "Digital Twin Technology"
     );
 }
@@ -1219,7 +1248,7 @@ function highWaterScarcity2() {
 
 function showAdvancedWastewaterResult() {
     showResult(
-        "✅ Recommended Technology",
+        "Recommended Technology",
         "Advanced Wastewater Recycling"
     );
 }
@@ -1247,7 +1276,7 @@ function highInfrastructureEfficiency2() {
 
 function showAILeakDetectionResult() {
     showResult(
-        "✅ Recommended Technology",
+        "Recommended Technology",
         "AI Leak Detection"
     );
 }
@@ -1296,7 +1325,7 @@ function moderateAgriculturalEfficiency2() {
 
 function showSmartIrrigationResult() {
     showResult(
-        "✅ Recommended Technology",
+        "Recommended Technology",
         "Smart Irrigation & IoT"
     );
 }
@@ -1344,7 +1373,7 @@ function moderateFloodManagement4() {
 
 function showNatureBasedSolutionsResult() {
     showResult(
-        "✅ Recommended Technology",
+        "Recommended Technology",
         "Nature-Based Solutions"
     );
 }
@@ -1403,7 +1432,7 @@ function lowCommunityResilience3() {
 
 function showDecentralisedWaterTreatmentResult() {
     showResult(
-        "✅ Recommended Technology",
+        "Recommended Technology",
         "Decentralised Water Treatment Systems"
     );
 }
