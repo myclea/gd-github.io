@@ -153,7 +153,11 @@ function selectCity(city) {
     
     // 设置初始标题为"Stakeholder Analysis in [城市名]"
     if(document.querySelector('.stakeholder-title')) {
-        document.querySelector('.stakeholder-title').textContent = `Stakeholder Analysis in ${city}`;
+        if (city === 'Any Other City') {
+            document.querySelector('.stakeholder-title').textContent = `Stakeholder Analysis`;
+        } else {
+            document.querySelector('.stakeholder-title').textContent = `Stakeholder Analysis in ${city}`;
+        }
     }
     
     // 显示对应城市的图表
@@ -162,21 +166,31 @@ function selectCity(city) {
         if($('accraDiagram')) $('accraDiagram').style.display = 'none';
         if($('singaporeDiagram')) $('singaporeDiagram').style.display = 'none';
         if($('valenciaDiagram')) $('valenciaDiagram').style.display = 'none';
+        if($('anyOtherCityDiagram')) $('anyOtherCityDiagram').style.display = 'none';
     } else if (city === 'Accra') {
         if($('sfDiagram')) $('sfDiagram').style.display = 'none';
         if($('accraDiagram')) $('accraDiagram').style.display = 'flex';
         if($('singaporeDiagram')) $('singaporeDiagram').style.display = 'none';
         if($('valenciaDiagram')) $('valenciaDiagram').style.display = 'none';
+        if($('anyOtherCityDiagram')) $('anyOtherCityDiagram').style.display = 'none';
     } else if (city === 'Singapore') {
         if($('sfDiagram')) $('sfDiagram').style.display = 'none';
         if($('accraDiagram')) $('accraDiagram').style.display = 'none';
         if($('singaporeDiagram')) $('singaporeDiagram').style.display = 'flex';
         if($('valenciaDiagram')) $('valenciaDiagram').style.display = 'none';
+        if($('anyOtherCityDiagram')) $('anyOtherCityDiagram').style.display = 'none';
     } else if (city === 'Valencia') {
         if($('sfDiagram')) $('sfDiagram').style.display = 'none';
         if($('accraDiagram')) $('accraDiagram').style.display = 'none';
         if($('singaporeDiagram')) $('singaporeDiagram').style.display = 'none';
         if($('valenciaDiagram')) $('valenciaDiagram').style.display = 'flex';
+        if($('anyOtherCityDiagram')) $('anyOtherCityDiagram').style.display = 'none';
+    } else if (city === 'Any Other City') {
+        if($('sfDiagram')) $('sfDiagram').style.display = 'none';
+        if($('accraDiagram')) $('accraDiagram').style.display = 'none';
+        if($('singaporeDiagram')) $('singaporeDiagram').style.display = 'none';
+        if($('valenciaDiagram')) $('valenciaDiagram').style.display = 'none';
+        if($('anyOtherCityDiagram')) $('anyOtherCityDiagram').style.display = 'flex';
     }
     
     // 显示利益相关者流程页面
@@ -291,11 +305,20 @@ function updateStakeholderQuestion() {
     
     // 更新标题 - 如果是第8步或之后，标题为"Enabler Analysis"，否则为"Stakeholder Analysis"
     if(document.querySelector('.stakeholder-title')) {
-        // "intra_level"是第8步，所以如果当前步骤 >= 8，则使用"Enabler Analysis"
-        if (currentState.step >= 8) {
-            document.querySelector('.stakeholder-title').textContent = `Enabler Analysis in ${selectedCity}`;
+        // 如果是"Any Other City"选项，不显示城市名
+        if (selectedCity === 'Any Other City') {
+            if (currentState.step >= 8) {
+                document.querySelector('.stakeholder-title').textContent = `Enabler Analysis`;
+            } else {
+                document.querySelector('.stakeholder-title').textContent = `Stakeholder Analysis`;
+            }
         } else {
-            document.querySelector('.stakeholder-title').textContent = `Stakeholder Analysis in ${selectedCity}`;
+            // 其他城市保持原有逻辑
+            if (currentState.step >= 8) {
+                document.querySelector('.stakeholder-title').textContent = `Enabler Analysis in ${selectedCity}`;
+            } else {
+                document.querySelector('.stakeholder-title').textContent = `Stakeholder Analysis in ${selectedCity}`;
+            }
         }
     }
     
@@ -1042,12 +1065,22 @@ function showDatabaseMessage(databaseId) {
         'Singapore': 'singapore',
         'Valencia': 'valencia'
     };
-    // 获取当前选中城市的 key
-    const selectedCityKey = cityKeyMap[selectedCity] || selectedCity;
-    // 原始顺序
-    const allCityKeys = ['sf', 'accra', 'singapore', 'valencia'];
-    // 让选中城市排在第一个，其余顺序不变
-    const cityKeys = [selectedCityKey, ...allCityKeys.filter(key => key !== selectedCityKey)];
+    
+    // 获取当前选中城市的 key，Any Other City 不需要添加到数据库显示中
+    let selectedCityKey = cityKeyMap[selectedCity];
+    
+    // 固定的城市顺序，Any Other City 不参与显示
+    const fixedCityKeys = ['sf', 'accra', 'singapore', 'valencia'];
+    let cityKeys;
+    
+    if (selectedCity === 'Any Other City') {
+        // Any Other City 选项时，只显示其他四个城市，不需要调整顺序
+        cityKeys = fixedCityKeys;
+    } else {
+        // 让选中城市排在第一个，其余顺序不变
+        cityKeys = [selectedCityKey, ...fixedCityKeys.filter(key => key !== selectedCityKey)];
+    }
+    
     // id 映射
     const cityIdMap = {
         'sf': {name: 'San Francisco', list: 'sfCityList', title: 'sfCityName'},
@@ -1127,20 +1160,22 @@ function showDatabaseMessage(databaseId) {
             li.className = 'no-data';
             $(listId).appendChild(li);
         }
-        // 高亮所选城市
+        
+        // 高亮所选城市，但Any Other City选项不高亮任何城市
         const titleElem = $(titleId);
-        if (selectedCityKey === key) {
+        if (selectedCity !== 'Any Other City' && selectedCityKey === key) {
             titleElem.classList.add('selected');
         } else {
             titleElem.classList.remove('selected');
         }
+        
         // 高亮城市指标表格的h3标题
         const metricsTables = document.querySelectorAll('.city-metrics-table');
         metricsTables.forEach(table => {
             const h3 = table.querySelector('h3');
             if (!h3) return;
             if (h3.textContent.trim() === cityIdMap[key].name) {
-                if (selectedCityKey === key) {
+                if (selectedCity !== 'Any Other City' && selectedCityKey === key) {
                     h3.classList.add('selected');
                 } else {
                     h3.classList.remove('selected');
@@ -1168,7 +1203,11 @@ function closeDatabase() {
 // 显示最终信息 - 利益相关者流程完成后显示
 function showEndMessage() {
     // 显示完成消息
-    $('questionText').textContent = "Congratulations! All stakeholders are present for water technology innovation in " + selectedCity + ". You can now proceed to the Technology Selector.";
+    if (selectedCity === 'Any Other City') {
+        $('questionText').textContent = "Congratulations! All stakeholders are present for water technology innovation. You can now proceed to the Technology Selector.";
+    } else {
+        $('questionText').textContent = "Congratulations! All stakeholders are present for water technology innovation in " + selectedCity + ". You can now proceed to the Technology Selector.";
+    }
     
     // 隐藏按钮
     document.querySelector('.stakeholder-buttons').innerHTML = `

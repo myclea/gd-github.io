@@ -106,6 +106,17 @@ body {
     box-shadow: 0 6px 15px rgba(33, 150, 243, 0.4); /* 更强的阴影 */
 }
 
+.city-button.other-city {
+    background-color: #757575; /* 灰色 */
+    box-shadow: 0 4px 10px rgba(117, 117, 117, 0.3);
+}
+
+.city-button.other-city:hover {
+    background-color: #616161; /* 深灰色 - 悬停 */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(117, 117, 117, 0.4);
+}
+
 /* 利益相关者分析页样式 - 显示利益相关者流程的风格 */
 .stakeholder-card {
     background-color: var(--card);
