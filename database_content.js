@@ -19,7 +19,6 @@ const DATABASE_CONTENT = {
         ]
     },
 
-    // 政策制定者和监管者
     "database_b": {
         "title": "Policy-makers & Regulators",
         "sf": [
