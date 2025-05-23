@@ -137,7 +137,8 @@ const DATABASE_CONTENT = {
             "Adopting transparent procurement practices",
             "Incentivising employee innovation and creativity (if through piloting)",
             "Conducting training for staff",
-            "2. Policy-makers & Regulators to Investors & Accelerators"
+            "2. Policy-makers & Regulators to Investors & Accelerators",
+            "No data available",
 
         ],
         "singapore": [
@@ -176,6 +177,7 @@ const DATABASE_CONTENT = {
             "3. Innovators & Entrepreneurs to All",
             "AI to foster and standardise decision-making (from C to others)",
             "4. Investors & Accelerators to All",
+            "No data available",
             "5. All to All",
             "Be proactive instead of reactive, which requires time spent to set a certain programme",
             "Have a systemic view/understanding and a decision-support tools that links similar problems/issues together and studies the trade-offs between different habitats and technologies",
@@ -194,7 +196,9 @@ const DATABASE_CONTENT = {
             "Streamlining approval processes for water projects",
             "Leveraging policy incentives to drive technology adoption",
             "3. Innovators & Entrepreneurs to All",
+            "No data available",
             "4. Investors & Accelerators to All",
+            "No data available",
             "5. All to All",
             "Utilising digital tools and data for monitoring performance",
             "→ Encouraging data-driven decision-making in water management",
@@ -217,6 +221,7 @@ const DATABASE_CONTENT = {
             "Entrepreneur-led international partnerships and participation in global innovation competitions (e.g., Earthshot Prize, Uplink) to drive awareness, foster global networking, and attract cross-border investment and scaling opportunities",
             "Innovators contributing directly to policy and strategy through targeted consultations and direct engagements with regulators and policymakers, demonstrating industry insights to shape supportive regulatory frameworks",
             "4. Investors & Accelerators to All",
+            "No data available",
             "5. All to All",
             "Comprehensive national water strategy (public-private partnerships, infrastructure financing)",
             "Strong government-industry-academia collaboration, established public trust",
@@ -225,6 +230,7 @@ const DATABASE_CONTENT = {
         ],
         "valencia": [
             "1. Public Utilities & Private Infrastructure Providers to All",
+            "No data available",
             "2. Policy-makers & Regulators to All",
             "Openness to new water management technologies driven by institutional innovation",
             "Application of EU Water Framework Directive promoting harmonised policy uptake ",

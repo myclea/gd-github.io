@@ -31,7 +31,7 @@ const stakeholderFlowData = {
         "previous": "start"
     },
     "governance": {
-        "question": "Check: Are all Governance stakeholders present?", // 检查：所有治理相关的利益相关者是否都在场？
+        "question": "Check: Are all Governance Stakeholder present?", // 检查：所有治理相关的利益相关者是否都在场？
         "yes": "innovators",
         "no": "start",
         "step": 3,
@@ -52,7 +52,7 @@ const stakeholderFlowData = {
         "previous": "innovators"
     },
     "aquapreneurship": {
-        "question": "Check: Are all Aquapreneurship stakeholders present?", // 检查：所有水创业利益相关者是否都在场？
+        "question": "Check: Are all Aquapreneurship Stakeholder present?", // 检查：所有水创业利益相关者是否都在场？
         "yes": "supporting",
         "no": "innovators",
         "step": 6,
@@ -66,49 +66,49 @@ const stakeholderFlowData = {
         "previous": "aquapreneurship"
     },
     "intra_level": {
-        "question": "Are Intra-level Governance enablers present?", // 所有内部级治理促成者是否都在场？
+        "question": "Are Intra-level Governance Enabler present?", // 所有内部级治理促成者是否都在场？
         "yes": "intra_aqua",
         "no": "database_f",
         "step": 8,
         "previous": "supporting"
     },
     "intra_aqua": {
-        "question": "Are Intra-level Aquapreneurship enablers present?", // 所有内部级水创业促成者是否都在场？
+        "question": "Are Intra-level Aquapreneurship Enabler present?", // 所有内部级水创业促成者是否都在场？
         "yes": "check_intra",
         "no": "database_g",
         "step": 9,
         "previous": "intra_level"
     },
     "check_intra": {
-        "question": "Check: Are all Intra-level enablers present?", // 检查：所有内部级促成者是否都在场？
+        "question": "Check: Are all Intra-level Enabler present?", // 检查：所有内部级促成者是否都在场？
         "yes": "trans_individual",
         "no": "intra_level",
         "step": 10,
         "previous": "intra_aqua"
     },
     "trans_individual": {
-        "question": "Are Trans-level Individual enablers present?", // 所有跨级个人促成者是否都在场？
+        "question": "Are Trans-level Individual Enabler present?", // 所有跨级个人促成者是否都在场？
         "yes": "trans_multi",
         "no": "database_h",
         "step": 11,
         "previous": "check_intra"
     },
     "trans_multi": {
-        "question": "Are Trans-level Multi-stakeholder enablers present?", // 所有跨级多方利益相关者促成者是否都在场？
+        "question": "Are Trans-level Multi-stakeholder Enabler present?", // 所有跨级多方利益相关者促成者是否都在场？
         "yes": "check_trans",
         "no": "database_j",
         "step": 12,
         "previous": "trans_individual"
     },
     "check_trans": {
-        "question": "Check: Are all Trans-level enablers present?", // 检查：所有跨级促成者是否都在场？
+        "question": "Check: Are all Trans-level Enablers present?", // 检查：所有跨级促成者是否都在场？
         "yes": "final_check",
         "no": "trans_individual",
         "step": 13,
         "previous": "trans_multi"
     },
     "final_check": {
-        "question": "Are Supporting enablers present?", // 所有支持性促成者是否都在场？
+        "question": "Are Supporting Enablers present?", // 所有支持性促成者是否都在场？
         "yes": "end",
         "no": "database_k",
         "step": 14,
@@ -299,6 +299,125 @@ function updateStakeholderQuestion() {
     
     // 更新问题文本
     $('questionText').textContent = currentState.question;
+    
+    // 如果是 intra_level 状态，添加注释文本
+    if (currentStakeholderState === "intra_level") {
+        // 检查是否已存在注释，避免重复添加
+        let noteElement = document.getElementById('intraLevelNote');
+        if (!noteElement) {
+            noteElement = document.createElement('p');
+            noteElement.id = 'intraLevelNote';
+            noteElement.style.marginTop = '15px';
+            noteElement.style.fontSize = '16px';
+            noteElement.style.fontStyle = 'italic';
+            noteElement.style.color = 'var(--text-secondary)';
+            noteElement.textContent = "Note: Intra-level Governance Enablers facilitate connections between Public Utilities & Private Infrastructure Providers and Policy-makers & Regulators.";
+            $('questionText').parentNode.insertBefore(noteElement, $('questionText').nextSibling);
+        }
+    } else {
+        // 如果不是 intra_level 状态，移除注释（如果存在）
+        const noteElement = document.getElementById('intraLevelNote');
+        if (noteElement) {
+            noteElement.remove();
+        }
+    }
+    
+    // 如果是 intra_aqua 状态，添加注释文本
+    if (currentStakeholderState === "intra_aqua") {
+        // 检查是否已存在注释，避免重复添加
+        let noteElement = document.getElementById('intraAquaNote');
+        if (!noteElement) {
+            noteElement = document.createElement('p');
+            noteElement.id = 'intraAquaNote';
+            noteElement.style.marginTop = '15px';
+            noteElement.style.fontSize = '16px';
+            noteElement.style.fontStyle = 'italic';
+            noteElement.style.color = 'var(--text-secondary)';
+            noteElement.textContent = "Note: Intra-level Aquapreneurship Enablers facilitate connections between Innovators & Entrepreneurs and Investors & Accelerators.";
+            $('questionText').parentNode.insertBefore(noteElement, $('questionText').nextSibling);
+        }
+    } else {
+        // 如果不是 intra_aqua 状态，移除注释（如果存在）
+        const noteElement = document.getElementById('intraAquaNote');
+        if (noteElement) {
+            noteElement.remove();
+        }
+    }
+    
+    // 如果是 trans_individual 状态，添加注释文本
+    if (currentStakeholderState === "trans_individual") {
+        // 检查是否已存在注释，避免重复添加
+        let noteElement = document.getElementById('transIndividualNote');
+        if (!noteElement) {
+            noteElement = document.createElement('div');
+            noteElement.id = 'transIndividualNote';
+            noteElement.style.marginTop = '15px';
+            noteElement.style.fontSize = '16px';
+            noteElement.style.fontStyle = 'italic';
+            noteElement.style.color = 'var(--text-secondary)';
+            noteElement.style.backgroundColor = '#f9f9f9';
+            noteElement.style.padding = '15px';
+            noteElement.style.borderRadius = '8px';
+            noteElement.style.border = '1px solid #eee';
+            noteElement.style.textAlign = 'left';
+            
+            // 创建注释内容
+            noteElement.innerHTML = `
+                <div>Note: Trans-level Individual Enablers facilitate connections between</div>
+                <ul style="list-style-type: disc; margin-left: 20px; margin-top: 5px; margin-bottom: 0;">
+                    <li>Public Utilities & Private Infrastructure Providers and Innovators & Entrepreneurs</li>
+                    <li>Policy-makers & Regulators and Investors & Accelerators</li>
+                </ul>
+            `;
+            
+            $('questionText').parentNode.insertBefore(noteElement, $('questionText').nextSibling);
+        }
+    } else {
+        // 如果不是 trans_individual 状态，移除注释（如果存在）
+        const noteElement = document.getElementById('transIndividualNote');
+        if (noteElement) {
+            noteElement.remove();
+        }
+    }
+    
+    // 如果是 trans_multi 状态，添加注释文本
+    if (currentStakeholderState === "trans_multi") {
+        // 检查是否已存在注释，避免重复添加
+        let noteElement = document.getElementById('transMultiNote');
+        if (!noteElement) {
+            noteElement = document.createElement('div');
+            noteElement.id = 'transMultiNote';
+            noteElement.style.marginTop = '15px';
+            noteElement.style.fontSize = '16px';
+            noteElement.style.fontStyle = 'italic';
+            noteElement.style.color = 'var(--text-secondary)';
+            noteElement.style.backgroundColor = '#f9f9f9';
+            noteElement.style.padding = '15px';
+            noteElement.style.borderRadius = '8px';
+            noteElement.style.border = '1px solid #eee';
+            noteElement.style.textAlign = 'left';
+            
+            // 创建注释内容
+            noteElement.innerHTML = `
+                <div>Note: Trans-level Multi-stakeholder Enablers facilitate connections from</div>
+                <ul style="list-style-type: disc; margin-left: 20px; margin-top: 5px; margin-bottom: 0;">
+                    <li>Public Utilities & Private Infrastructure Providers to All</li>
+                    <li>Policy-makers & Regulators to All</li>
+                    <li>Innovators & Entrepreneurs to All</li>
+                    <li>Investors & Accelerators to All</li>
+                    <li>All to All</li>
+                </ul>
+            `;
+            
+            $('questionText').parentNode.insertBefore(noteElement, $('questionText').nextSibling);
+        }
+    } else {
+        // 如果不是 trans_multi 状态，移除注释（如果存在）
+        const noteElement = document.getElementById('transMultiNote');
+        if (noteElement) {
+            noteElement.remove();
+        }
+    }
     
     // 更新进度
     stakeholderStep = currentState.step;
@@ -576,6 +695,12 @@ function showResult(title, message) {
     titleText.textContent = title;
     titleText.style.color = '#333';
     titleText.style.margin = '10px 0';
+    
+    // 如果是推荐技术结果，缩小标题字体
+    if (title.includes("Recommended")) {
+        titleText.style.fontSize = '28px';  // 减小"Recommended Technology"字体大小
+    }
+    
     titleContainer.appendChild(titleText);
     
     $('resultDisplay').appendChild(titleContainer);
@@ -586,10 +711,10 @@ function showResult(title, message) {
         subtitleElement.textContent = techName;
         subtitleElement.className = 'subtitle';
         subtitleElement.style.color = 'var(--primary)';
-        subtitleElement.style.fontSize = '18px';
+        subtitleElement.style.fontSize = '26px';  // 调整技术名称的字体大小
         subtitleElement.style.marginTop = '15px';
         subtitleElement.style.marginBottom = '20px';
-        subtitleElement.style.fontWeight = '500';
+        subtitleElement.style.fontWeight = '600';  // 保持字体权重，使其醒目
         subtitleElement.style.display = 'block';
         subtitleElement.style.clear = 'both';
         subtitleElement.style.textAlign = 'left';
@@ -634,6 +759,7 @@ function showResult(title, message) {
         detailsContainer.style.marginTop = '20px';
         
         // 添加各项详细信息
+        let alternativesAdded = false;
         for (const [key, value] of Object.entries(detailedInfo)) {
             const detailItem = document.createElement('div');
             detailItem.style.marginBottom = '15px';
@@ -658,7 +784,107 @@ function showResult(title, message) {
             
             detailItem.appendChild(textContent);
             detailsContainer.appendChild(detailItem);
+            
+            // 在"What it is"和"Hype Cycle"之间添加替代技术
+            if (key === "What it is" && !alternativesAdded) {
+                alternativesAdded = true;
+                
+                const alternativesItem = document.createElement('div');
+                alternativesItem.style.marginBottom = '15px';
+                alternativesItem.style.display = 'flex';
+                alternativesItem.style.alignItems = 'flex-start';
+                
+                // 添加图标
+                const altIcon = document.createElement('span');
+                altIcon.style.marginRight = '10px';
+                altIcon.style.fontSize = '20px';
+                altIcon.textContent = "🔄";
+                alternativesItem.appendChild(altIcon);
+                
+                // 添加详细文本
+                const altTextContent = document.createElement('div');
+                const altLabel = document.createElement('strong');
+                altLabel.textContent = "Alternative and complementary technologies: ";
+                altTextContent.appendChild(altLabel);
+                
+                // 添加换行和列表
+                const altList = document.createElement('ul');
+                altList.style.marginTop = '5px';
+                altList.style.paddingLeft = '20px';
+                
+                // 根据技术名称添加不同的替代技术
+                if (techName.includes("Decentralised Water Treatment Systems")) {
+                    // 为 Decentralised Water Treatment Systems 技术添加特定的替代技术
+                    const altItems = [
+                        "Forward Osmosis",
+                        "Solar Powered Desalination",
+                        "Electrocoagulation"
+                    ];
+                    
+                    // 为每个替代技术创建列表项
+                    altItems.forEach(item => {
+                        const altItem = document.createElement('li');
+                        altItem.textContent = item;
+                        altList.appendChild(altItem);
+                    });
+                }
+                
+                altTextContent.appendChild(altList);
+                alternativesItem.appendChild(altTextContent);
+                detailsContainer.appendChild(alternativesItem);
+            }
         }
+        
+        // 添加Uplink Aquapreneurs部分在Additional下面
+        const uplinkItem = document.createElement('div');
+        uplinkItem.style.marginBottom = '15px';
+        uplinkItem.style.marginTop = '20px';
+        uplinkItem.style.display = 'flex';
+        uplinkItem.style.alignItems = 'flex-start';
+        
+        // 添加图标
+        const uplinkIcon = document.createElement('span');
+        uplinkIcon.style.marginRight = '10px';
+        uplinkIcon.style.fontSize = '20px';
+        uplinkIcon.textContent = "🚀";
+        uplinkItem.appendChild(uplinkIcon);
+        
+        // 添加详细文本
+        const uplinkTextContent = document.createElement('div');
+        const uplinkLabel = document.createElement('strong');
+        uplinkLabel.textContent = "Uplink Aquapreneurs deploying these technologies: ";
+        uplinkTextContent.appendChild(uplinkLabel);
+        
+        // 添加换行和列表
+        const uplinkList = document.createElement('ul');
+        uplinkList.style.marginTop = '5px';
+        uplinkList.style.paddingLeft = '20px';
+        
+        // 根据技术名称添加不同的公司列表
+        if (techName.includes("Decentralised Water Treatment Systems")) {
+            // 为 Decentralised Water Treatment Systems 技术添加特定的公司
+            const companies = [
+                { name: "Indra Water", url: "https://www.indrawater.com" },
+                { name: "Openversum", url: "https://www.openversum.com" },
+                { name: "WASE", url: "https://wase.co.uk" }
+            ];
+            
+            companies.forEach(company => {
+                const companyItem = document.createElement('li');
+                const companyLink = document.createElement('a');
+                companyLink.textContent = company.name;
+                companyLink.href = company.url;
+                companyLink.target = "_blank";
+                companyLink.style.color = "#333";
+                companyLink.style.textDecoration = "none";
+                companyItem.appendChild(companyLink);
+                uplinkList.appendChild(companyItem);
+            });
+        }
+        
+        uplinkTextContent.appendChild(uplinkList);
+        uplinkItem.appendChild(uplinkTextContent);
+        detailsContainer.appendChild(uplinkItem);
         
         $('resultDisplay').appendChild(detailsContainer);
         // Guidance Criteria 区块
@@ -767,6 +993,7 @@ function showResult(title, message) {
     // 添加操作按钮
     const buttonContainer = document.createElement('div');
     buttonContainer.style.marginTop = '30px';
+    
     const actionBtn = document.createElement('button');
     actionBtn.className = 'modern-button primary';
     // 判断不同情况
@@ -784,6 +1011,24 @@ function showResult(title, message) {
             message.trim().endsWith('Therefore, return to Stage 1.')
         ))
     ) {
+        // 对于需要返回Stage 1的情况，显示"Back to the beginning of Stage 2"和"Start Over"按钮
+        const backToStage2Button = document.createElement('button');
+        backToStage2Button.className = 'modern-button secondary';
+        backToStage2Button.textContent = 'Back to the beginning of Stage 2';
+        backToStage2Button.style.marginRight = '15px';
+        backToStage2Button.onclick = function() {
+            // 重置技术流程历史和步骤
+            techHistory = [];
+            techStep = 1;
+            // 隐藏能力选择，显示问题卡片
+            if ($('capacitySelection')) $('capacitySelection').style.display = 'none';
+            if ($('techQuestionCard')) $('techQuestionCard').style.display = 'block';
+            if ($('resultDisplay')) $('resultDisplay').style.display = 'none';
+            // 回到water strategy问题页
+            secondTechQuestion();
+        };
+        buttonContainer.appendChild(backToStage2Button);
+        
         actionBtn.textContent = 'Start Over';
         actionBtn.onclick = function() {
             window.location.reload();
@@ -829,7 +1074,7 @@ function getTechDetails(techName) {
                 text: "Needs strong digital policy and data integration."
             }
         },
-        "Advanced Wastewater Recycling": {
+        "Largescale Wastewater Recycling/Desalination": {
             "What it is": {
                 icon: "💡",
                 text: "Uses membrane bioreactors, UV disinfection, and reverse osmosis."
@@ -889,7 +1134,7 @@ function getTechDetails(techName) {
                 text: "Needs sensor integration and strong AI/data governance."
             }
         },
-        "Smart Irrigation & IoT": {
+        "Smart Irrigation and Internet of Things (IoT)": {
             "What it is": {
                 icon: "💡",
                 text: "Sensors measure weather, soil and crop data to optimise irrigation."
@@ -1288,7 +1533,7 @@ function highWaterScarcity2() {
 function showAdvancedWastewaterResult() {
     showResult(
         "Recommended Technology",
-        "Advanced Wastewater Recycling"
+        "Largescale Wastewater Recycling/Desalination"
     );
 }
 
@@ -1365,7 +1610,7 @@ function moderateAgriculturalEfficiency2() {
 function showSmartIrrigationResult() {
     showResult(
         "Recommended Technology",
-        "Smart Irrigation & IoT"
+        "Smart Irrigation and Internet of Things (IoT)"
     );
 }
 
