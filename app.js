@@ -1714,7 +1714,6 @@ function lowCommunityResilience3() {
     window.noFunction = "showLowCapacityNoMatchResult";
 }
 
-
 function showDecentralisedWaterTreatmentResult() {
     showResult(
         "Recommended Technology",
