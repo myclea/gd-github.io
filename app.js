@@ -2085,7 +2085,6 @@ function lowCommunityResilience2() {
     window.noFunction = "showLowCapacityNoMatchResult";
 }
 
-
 function lowCommunityResilience3() {
     techHistory.push(window.currentTechQuestionFunction);
     techStep++;

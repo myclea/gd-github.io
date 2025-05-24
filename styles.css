@@ -632,6 +632,7 @@ th {
     text-align: center;
 }
 
+
 .level.low {
     background-color: #FFEBEE;
     color: var(--error);
