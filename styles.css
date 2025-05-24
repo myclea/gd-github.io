@@ -51,6 +51,36 @@ body {
     margin: 40px auto;
     text-align: center;
     max-width: 800px;
+    position: relative;  /* 添加相对定位，用于logo的绝对定位 */
+}
+
+/* Logo样式 */
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    max-width: 150px;
+}
+
+.logo-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 版权信息样式 */
+.copyright-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--divider);
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.copyright-section p {
+    margin: 5px 0;
 }
 
 .main-title {
@@ -58,6 +88,7 @@ body {
     color: var(--primary);          /* 主色调蓝色 */
     margin-bottom: 10px;
     font-weight: 700;
+    margin-top: 60px;  /* 为logo腾出空间 */
 }
 
 .main-subtitle {
@@ -651,39 +682,35 @@ th {
 /* 响应式调整 */
 @media (max-width: 768px) {
     .container {
-        margin: 20px;
-        width: auto;
+        margin: 20px auto;
+        padding: 0 15px;
     }
     
     .city-options,
-    .capacity-buttons,
-    .city-comparison,
-    .city-metrics-tables {
+    .city-comparison {
         flex-direction: column;
     }
     
     .city-option,
-    .capacity-button,
-    .city-metrics-table {
-        margin: 15px 0;
+    .city-data {
+        width: 100%;
     }
     
     .vertical-divider {
-        width: 100%;
-        height: 4px;
-        margin: 20px 0;
+        display: none;
     }
     
     .button-group {
-        flex-direction: column;
+        flex-wrap: wrap;
     }
     
     .modern-button {
-        margin: 10px 0;
+        width: 100%;
     }
     
     .main-title {
         font-size: 36px;
+        margin-top: 70px; /* 为logo腾出更多空间 */
     }
     
     .main-subtitle {
@@ -702,12 +729,31 @@ th {
     
     .stakeholder-buttons {
         flex-direction: column;
-        align-items: center;
     }
     
     .stakeholder-button {
-        width: 80%;
+        width: 100%;
         margin-bottom: 10px;
+    }
+    
+    /* Logo响应式调整 */
+    .logo-container {
+        position: relative;
+        top: 0;
+        left: 0;
+        max-width: 100px;
+        margin: 0 auto 20px;
+    }
+    
+    /* 版权信息响应式调整 */
+    .copyright-section {
+        margin-top: 30px;
+        padding-top: 15px;
+        font-size: 12px;
+    }
+    
+    .welcome-card {
+        padding: 25px;
     }
 }
 

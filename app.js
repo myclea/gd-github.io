@@ -31,7 +31,7 @@ const stakeholderFlowData = {
         "previous": "start"
     },
     "governance": {
-        "question": "Check: Are all Governance Stakeholder present?", // 检查：所有治理相关的利益相关者是否都在场？
+        "question": "Check: Are all Governance Stakeholders present?", // 检查：所有治理相关的利益相关者是否都在场？
         "yes": "innovators",
         "no": "start",
         "step": 3,
@@ -52,7 +52,7 @@ const stakeholderFlowData = {
         "previous": "innovators"
     },
     "aquapreneurship": {
-        "question": "Check: Are all Aquapreneurship Stakeholder present?", // 检查：所有水创业利益相关者是否都在场？
+        "question": "Check: Are all Aquapreneurship Stakeholders present?", // 检查：所有水创业利益相关者是否都在场？
         "yes": "supporting",
         "no": "innovators",
         "step": 6,
@@ -66,35 +66,35 @@ const stakeholderFlowData = {
         "previous": "aquapreneurship"
     },
     "intra_level": {
-        "question": "Are Intra-level Governance Enabler present?", // 所有内部级治理促成者是否都在场？
+        "question": "Are Intra-level Governance Enablers present?", // 所有内部级治理促成者是否都在场？
         "yes": "intra_aqua",
         "no": "database_f",
         "step": 8,
         "previous": "supporting"
     },
     "intra_aqua": {
-        "question": "Are Intra-level Aquapreneurship Enabler present?", // 所有内部级水创业促成者是否都在场？
+        "question": "Are Intra-level Aquapreneurship Enablers present?", // 所有内部级水创业促成者是否都在场？
         "yes": "check_intra",
         "no": "database_g",
         "step": 9,
         "previous": "intra_level"
     },
     "check_intra": {
-        "question": "Check: Are all Intra-level Enabler present?", // 检查：所有内部级促成者是否都在场？
+        "question": "Check: Are all Intra-level Enablers present?", // 检查：所有内部级促成者是否都在场？
         "yes": "trans_individual",
         "no": "intra_level",
         "step": 10,
         "previous": "intra_aqua"
     },
     "trans_individual": {
-        "question": "Are Trans-level Individual Enabler present?", // 所有跨级个人促成者是否都在场？
+        "question": "Are Trans-level Individual Enablers present?", // 所有跨级个人促成者是否都在场？
         "yes": "trans_multi",
         "no": "database_h",
         "step": 11,
         "previous": "check_intra"
     },
     "trans_multi": {
-        "question": "Are Trans-level Multi-stakeholder Enabler present?", // 所有跨级多方利益相关者促成者是否都在场？
+        "question": "Are Trans-level Multi-stakeholder Enablers present?", // 所有跨级多方利益相关者促成者是否都在场？
         "yes": "check_trans",
         "no": "database_j",
         "step": 12,
@@ -749,7 +749,7 @@ function showResult(title, message) {
             }
         });
         $('resultDisplay').appendChild(msgBox);
-    } else if (detailedInfo) {
+    } else {
         // 创建详细信息容器
         const detailsContainer = document.createElement('div');
         detailsContainer.className = 'tech-details';
@@ -758,135 +758,61 @@ function showResult(title, message) {
         detailsContainer.style.borderRadius = '8px';
         detailsContainer.style.marginTop = '20px';
         
-        // 添加各项详细信息
-        let alternativesAdded = false;
-        for (const [key, value] of Object.entries(detailedInfo)) {
-            const detailItem = document.createElement('div');
-            detailItem.style.marginBottom = '15px';
-            detailItem.style.display = 'flex';
-            detailItem.style.alignItems = 'flex-start';
-            
-            // 添加图标
-            const icon = document.createElement('span');
-            icon.style.marginRight = '10px';
-            icon.style.fontSize = '20px';
-            icon.textContent = value.icon;
-            detailItem.appendChild(icon);
-            
-            // 添加详细文本
-            const textContent = document.createElement('div');
-            const label = document.createElement('strong');
-            label.textContent = key + ': ';
-            textContent.appendChild(label);
-            
-            const description = document.createTextNode(value.text);
-            textContent.appendChild(description);
-            
-            detailItem.appendChild(textContent);
-            detailsContainer.appendChild(detailItem);
-            
-            // 在"What it is"和"Hype Cycle"之间添加替代技术
-            if (key === "What it is" && !alternativesAdded) {
-                alternativesAdded = true;
-                
-                const alternativesItem = document.createElement('div');
-                alternativesItem.style.marginBottom = '15px';
-                alternativesItem.style.display = 'flex';
-                alternativesItem.style.alignItems = 'flex-start';
+        // 如果有详细信息，添加各项详细信息
+        if (detailedInfo) {
+            let alternativesAdded = false;
+            for (const [key, value] of Object.entries(detailedInfo)) {
+                const detailItem = document.createElement('div');
+                detailItem.style.marginBottom = '15px';
+                detailItem.style.display = 'flex';
+                detailItem.style.alignItems = 'flex-start';
                 
                 // 添加图标
-                const altIcon = document.createElement('span');
-                altIcon.style.marginRight = '10px';
-                altIcon.style.fontSize = '20px';
-                altIcon.textContent = "🔄";
-                alternativesItem.appendChild(altIcon);
+                const icon = document.createElement('span');
+                icon.style.marginRight = '10px';
+                icon.style.fontSize = '20px';
+                icon.textContent = value.icon;
+                detailItem.appendChild(icon);
                 
                 // 添加详细文本
-                const altTextContent = document.createElement('div');
-                const altLabel = document.createElement('strong');
-                altLabel.textContent = "Alternative and complementary technologies: ";
-                altTextContent.appendChild(altLabel);
+                const textContent = document.createElement('div');
+                const label = document.createElement('strong');
+                label.textContent = key + ': ';
+                textContent.appendChild(label);
                 
-                // 添加换行和列表
-                const altList = document.createElement('ul');
-                altList.style.marginTop = '5px';
-                altList.style.paddingLeft = '20px';
+                const description = document.createTextNode(value.text);
+                textContent.appendChild(description);
                 
-                // 根据技术名称添加不同的替代技术
-                if (techName.includes("Decentralised Water Treatment Systems")) {
-                    // 为 Decentralised Water Treatment Systems 技术添加特定的替代技术
-                    const altItems = [
-                        "Forward Osmosis",
-                        "Solar Powered Desalination",
-                        "Electrocoagulation"
-                    ];
-                    
-                    // 为每个替代技术创建列表项
-                    altItems.forEach(item => {
-                        const altItem = document.createElement('li');
-                        altItem.textContent = item;
-                        altList.appendChild(altItem);
-                    });
+                detailItem.appendChild(textContent);
+                detailsContainer.appendChild(detailItem);
+                
+                // 在"What it is"和"Hype Cycle"之间添加替代技术
+                if (key === "What it is" && !alternativesAdded) {
+                    alternativesAdded = true;
+                    addAlternativeTechnologies(detailsContainer);
                 }
-                
-                altTextContent.appendChild(altList);
-                alternativesItem.appendChild(altTextContent);
-                detailsContainer.appendChild(alternativesItem);
             }
-        }
-        
-        // 添加Uplink Aquapreneurs部分在Additional下面
-        const uplinkItem = document.createElement('div');
-        uplinkItem.style.marginBottom = '15px';
-        uplinkItem.style.marginTop = '20px';
-        uplinkItem.style.display = 'flex';
-        uplinkItem.style.alignItems = 'flex-start';
-        
-        // 添加图标
-        const uplinkIcon = document.createElement('span');
-        uplinkIcon.style.marginRight = '10px';
-        uplinkIcon.style.fontSize = '20px';
-        uplinkIcon.textContent = "🚀";
-        uplinkItem.appendChild(uplinkIcon);
-        
-        // 添加详细文本
-        const uplinkTextContent = document.createElement('div');
-        const uplinkLabel = document.createElement('strong');
-        uplinkLabel.textContent = "Uplink Aquapreneurs deploying these technologies: ";
-        uplinkTextContent.appendChild(uplinkLabel);
-        
-        // 添加换行和列表
-        const uplinkList = document.createElement('ul');
-        uplinkList.style.marginTop = '5px';
-        uplinkList.style.paddingLeft = '20px';
-        
-        // 根据技术名称添加不同的公司列表
-        if (techName.includes("Decentralised Water Treatment Systems")) {
-            // 为 Decentralised Water Treatment Systems 技术添加特定的公司
-            const companies = [
-                { name: "Indra Water", url: "https://www.indrawater.com" },
-                { name: "Openversum", url: "https://www.openversum.com" },
-                { name: "WASE", url: "https://wase.co.uk" }
-            ];
             
-            companies.forEach(company => {
-                const companyItem = document.createElement('li');
-                const companyLink = document.createElement('a');
-                companyLink.textContent = company.name;
-                companyLink.href = company.url;
-                companyLink.target = "_blank";
-                companyLink.style.color = "#333";
-                companyLink.style.textDecoration = "none";
-                companyItem.appendChild(companyLink);
-                uplinkList.appendChild(companyItem);
-            });
+            // 如果没有"What it is"字段或者其他原因导致未添加替代技术，则在此添加
+            if (!alternativesAdded) {
+                addAlternativeTechnologies(detailsContainer);
+            }
+        } else {
+            // 如果没有详细信息，只显示消息文本
+            const messageElem = document.createElement('p');
+            messageElem.textContent = message;
+            messageElem.style.margin = '0 0 20px 0';
+            detailsContainer.appendChild(messageElem);
+            
+            // 同样添加替代技术部分
+            addAlternativeTechnologies(detailsContainer);
         }
         
-        uplinkTextContent.appendChild(uplinkList);
-        uplinkItem.appendChild(uplinkTextContent);
-        detailsContainer.appendChild(uplinkItem);
+        // 添加Uplink Aquapreneurs部分
+        addUplinkAquapreneurs(detailsContainer);
         
         $('resultDisplay').appendChild(detailsContainer);
+        
         // Guidance Criteria 区块
         const guidanceBox = document.createElement('div');
         guidanceBox.className = 'guidance-criteria-box';
@@ -979,15 +905,6 @@ function showResult(title, message) {
                 </div>
         `;
         $('resultDisplay').appendChild(guidanceBox);
-    } else {
-        // 如果没有详细信息，只显示消息文本
-        const messageElem = document.createElement('p');
-        messageElem.textContent = message;
-        messageElem.style.backgroundColor = '#f9f9f9';
-        messageElem.style.padding = '20px';
-        messageElem.style.borderRadius = '8px';
-        messageElem.style.margin = '20px 0';
-        $('resultDisplay').appendChild(messageElem);
     }
     
     // 添加操作按钮
@@ -1039,6 +956,99 @@ function showResult(title, message) {
     }
     buttonContainer.appendChild(actionBtn);
     $('resultDisplay').appendChild(buttonContainer);
+}
+
+// 添加替代技术部分的函数
+function addAlternativeTechnologies(container) {
+    const alternativesItem = document.createElement('div');
+    alternativesItem.style.marginBottom = '15px';
+    alternativesItem.style.display = 'flex';
+    alternativesItem.style.alignItems = 'flex-start';
+    
+    // 添加图标
+    const altIcon = document.createElement('span');
+    altIcon.style.marginRight = '10px';
+    altIcon.style.fontSize = '20px';
+    altIcon.textContent = "🔄";
+    alternativesItem.appendChild(altIcon);
+    
+    // 添加详细文本
+    const altTextContent = document.createElement('div');
+    const altLabel = document.createElement('strong');
+    altLabel.textContent = "Alternative and complementary technologies: ";
+    altTextContent.appendChild(altLabel);
+    
+    // 添加换行和列表
+    const altList = document.createElement('ul');
+    altList.style.marginTop = '5px';
+    altList.style.paddingLeft = '20px';
+    
+    // 为所有技术添加相同的替代技术
+    const altItems = [
+        "AI-Powered Smart Grids",
+        "Real Time Water Quality Monitoring Sensors"
+    ];
+    
+    // 为每个替代技术创建列表项
+    altItems.forEach(item => {
+        const altItem = document.createElement('li');
+        altItem.textContent = item;
+        altList.appendChild(altItem);
+    });
+    
+    altTextContent.appendChild(altList);
+    alternativesItem.appendChild(altTextContent);
+    container.appendChild(alternativesItem);
+}
+
+// 添加Uplink Aquapreneurs部分的函数
+function addUplinkAquapreneurs(container) {
+    const uplinkItem = document.createElement('div');
+    uplinkItem.style.marginBottom = '15px';
+    uplinkItem.style.marginTop = '20px';
+    uplinkItem.style.display = 'flex';
+    uplinkItem.style.alignItems = 'flex-start';
+    
+    // 添加图标
+    const uplinkIcon = document.createElement('span');
+    uplinkIcon.style.marginRight = '10px';
+    uplinkIcon.style.fontSize = '20px';
+    uplinkIcon.textContent = "🚀";
+    uplinkItem.appendChild(uplinkIcon);
+    
+    // 添加详细文本
+    const uplinkTextContent = document.createElement('div');
+    const uplinkLabel = document.createElement('strong');
+    uplinkLabel.textContent = "Uplink Aquapreneurs deploying these technologies: ";
+    uplinkTextContent.appendChild(uplinkLabel);
+    
+    // 添加换行和列表
+    const uplinkList = document.createElement('ul');
+    uplinkList.style.marginTop = '5px';
+    uplinkList.style.paddingLeft = '20px';
+    
+    // 为所有技术添加相同的公司列表
+    const companies = [
+        { name: "RainGrid Inc.", url: "https://www.raingrid.com" },
+        { name: "SmartTerra", url: "https://www.smartterra.io" },
+        { name: "PYDRO", url: "https://www.pydro.com" }
+    ];
+    
+    companies.forEach(company => {
+        const companyItem = document.createElement('li');
+        const companyLink = document.createElement('a');
+        companyLink.textContent = company.name;
+        companyLink.href = company.url;
+        companyLink.target = "_blank";
+        companyLink.style.color = "#333";
+        companyLink.style.textDecoration = "none";
+        companyItem.appendChild(companyLink);
+        uplinkList.appendChild(companyItem);
+    });
+    
+    uplinkTextContent.appendChild(uplinkList);
+    uplinkItem.appendChild(uplinkTextContent);
+    container.appendChild(uplinkItem);
 }
 
 // 获取技术详细信息
@@ -1507,6 +1517,80 @@ function showDigitalTwinResult() {
         "Recommended Technology",
         "Digital Twin Technology"
     );
+    
+    // 在结果显示后，检查并添加特定的替代技术和公司信息
+    setTimeout(() => {
+        const resultDisplay = document.getElementById('resultDisplay');
+        if (resultDisplay) {
+            // 查找替代技术部分
+            let alternativeSection = null;
+            const sections = resultDisplay.querySelectorAll('.tech-details > div');
+            for (const section of sections) {
+                if (section.textContent.includes('Alternative and complementary technologies')) {
+                    alternativeSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到替代技术部分，更新其内容
+            if (alternativeSection) {
+                const altList = alternativeSection.querySelector('ul');
+                if (altList) {
+                    // 清空现有列表
+                    altList.innerHTML = '';
+                    
+                    // 添加特定的替代技术
+                    const altItems = [
+                        "AI-Powered Smart Grids",
+                        "Real Time Water Quality Monitoring Sensors"
+                    ];
+                    
+                    altItems.forEach(item => {
+                        const altItem = document.createElement('li');
+                        altItem.textContent = item;
+                        altList.appendChild(altItem);
+                    });
+                }
+            }
+            
+            // 查找Uplink Aquapreneurs部分
+            let uplinkSection = null;
+            for (const section of sections) {
+                if (section.textContent.includes('Uplink Aquapreneurs deploying these technologies')) {
+                    uplinkSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到Uplink Aquapreneurs部分，更新其内容
+            if (uplinkSection) {
+                const uplinkList = uplinkSection.querySelector('ul');
+                if (uplinkList) {
+                    // 清空现有列表
+                    uplinkList.innerHTML = '';
+                    
+                    // 添加特定的公司
+                    const companies = [
+                        { name: "RainGrid Inc.", url: "https://www.raingrid.com" },
+                        { name: "SmartTerra", url: "https://www.smartterra.io" },
+                        { name: "PYDRO", url: "https://www.pydro.com" }
+                    ];
+                    
+                    companies.forEach(company => {
+                        const companyItem = document.createElement('li');
+                        const companyLink = document.createElement('a');
+                        companyLink.textContent = company.name;
+                        companyLink.href = company.url;
+                        companyLink.target = "_blank";
+                        companyLink.style.color = "#333";
+                        companyLink.style.textDecoration = "none";
+                        companyItem.appendChild(companyLink);
+                        uplinkList.appendChild(companyItem);
+                    });
+                }
+            }
+        }
+    }, 100);
 }
 
 // 高容量 - 水资源稀缺路径
@@ -1535,6 +1619,82 @@ function showAdvancedWastewaterResult() {
         "Recommended Technology",
         "Largescale Wastewater Recycling/Desalination"
     );
+    
+    // 在结果显示后，检查并添加特定的替代技术和公司信息
+    setTimeout(() => {
+        const resultDisplay = document.getElementById('resultDisplay');
+        if (resultDisplay) {
+            // 查找替代技术部分
+            let alternativeSection = null;
+            const sections = resultDisplay.querySelectorAll('.tech-details > div');
+            for (const section of sections) {
+                if (section.textContent.includes('Alternative and complementary technologies')) {
+                    alternativeSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到替代技术部分，更新其内容
+            if (alternativeSection) {
+                const altList = alternativeSection.querySelector('ul');
+                if (altList) {
+                    // 清空现有列表
+                    altList.innerHTML = '';
+                    
+                    // 添加特定的替代技术
+                    const altItems = [
+                        "Bioelectrochemical Systems",
+                        "Advanced Oxidation Processes",
+                        "Supercritical Water Oxidation",
+                        "Membrane Distillation"
+                    ];
+                    
+                    altItems.forEach(item => {
+                        const altItem = document.createElement('li');
+                        altItem.textContent = item;
+                        altList.appendChild(altItem);
+                    });
+                }
+            }
+            
+            // 查找Uplink Aquapreneurs部分
+            let uplinkSection = null;
+            for (const section of sections) {
+                if (section.textContent.includes('Uplink Aquapreneurs deploying these technologies')) {
+                    uplinkSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到Uplink Aquapreneurs部分，更新其内容
+            if (uplinkSection) {
+                const uplinkList = uplinkSection.querySelector('ul');
+                if (uplinkList) {
+                    // 清空现有列表
+                    uplinkList.innerHTML = '';
+                    
+                    // 添加特定的公司
+                    const companies = [
+                        { name: "Epic Cleantec", url: "https://epiccleantec.com" },
+                        { name: "FieldFactors", url: "https://www.fieldfactors.com" },
+                        { name: "Syrinx", url: "https://www.syrinx.net.au" }
+                    ];
+                    
+                    companies.forEach(company => {
+                        const companyItem = document.createElement('li');
+                        const companyLink = document.createElement('a');
+                        companyLink.textContent = company.name;
+                        companyLink.href = company.url;
+                        companyLink.target = "_blank";
+                        companyLink.style.color = "#333";
+                        companyLink.style.textDecoration = "none";
+                        companyItem.appendChild(companyLink);
+                        uplinkList.appendChild(companyItem);
+                    });
+                }
+            }
+        }
+    }, 100);
 }
 
 // 高容量 - 基础设施效率路径
@@ -1563,6 +1723,79 @@ function showAILeakDetectionResult() {
         "Recommended Technology",
         "AI Leak Detection"
     );
+    
+    // 在结果显示后，检查并添加特定的替代技术和公司信息
+    setTimeout(() => {
+        const resultDisplay = document.getElementById('resultDisplay');
+        if (resultDisplay) {
+            // 查找替代技术部分
+            let alternativeSection = null;
+            const sections = resultDisplay.querySelectorAll('.tech-details > div');
+            for (const section of sections) {
+                if (section.textContent.includes('Alternative and complementary technologies')) {
+                    alternativeSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到替代技术部分，更新其内容
+            if (alternativeSection) {
+                const altList = alternativeSection.querySelector('ul');
+                if (altList) {
+                    // 清空现有列表
+                    altList.innerHTML = '';
+                    
+                    // 添加特定的替代技术
+                    const altItems = [
+                        "AI-Powered Smart Grids",
+                        "Electrocoagulation"
+                    ];
+                    
+                    altItems.forEach(item => {
+                        const altItem = document.createElement('li');
+                        altItem.textContent = item;
+                        altList.appendChild(altItem);
+                    });
+                }
+            }
+            
+            // 查找Uplink Aquapreneurs部分
+            let uplinkSection = null;
+            for (const section of sections) {
+                if (section.textContent.includes('Uplink Aquapreneurs deploying these technologies')) {
+                    uplinkSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到Uplink Aquapreneurs部分，更新其内容
+            if (uplinkSection) {
+                const uplinkList = uplinkSection.querySelector('ul');
+                if (uplinkList) {
+                    // 清空现有列表
+                    uplinkList.innerHTML = '';
+                    
+                    // 添加特定的公司
+                    const companies = [
+                        { name: "Shayp", url: "https://www.shayp.com" },
+                        { name: "SmartTerra", url: "https://www.smartterra.io" }
+                    ];
+                    
+                    companies.forEach(company => {
+                        const companyItem = document.createElement('li');
+                        const companyLink = document.createElement('a');
+                        companyLink.textContent = company.name;
+                        companyLink.href = company.url;
+                        companyLink.target = "_blank";
+                        companyLink.style.color = "#333";
+                        companyLink.style.textDecoration = "none";
+                        companyItem.appendChild(companyLink);
+                        uplinkList.appendChild(companyItem);
+                    });
+                }
+            }
+        }
+    }, 100);
 }
 
 function showHighCapacityNoMatchResult() {
@@ -1612,6 +1845,81 @@ function showSmartIrrigationResult() {
         "Recommended Technology",
         "Smart Irrigation and Internet of Things (IoT)"
     );
+    
+    // 在结果显示后，检查并添加特定的替代技术和公司信息
+    setTimeout(() => {
+        const resultDisplay = document.getElementById('resultDisplay');
+        if (resultDisplay) {
+            // 查找替代技术部分
+            let alternativeSection = null;
+            const sections = resultDisplay.querySelectorAll('.tech-details > div');
+            for (const section of sections) {
+                if (section.textContent.includes('Alternative and complementary technologies')) {
+                    alternativeSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到替代技术部分，更新其内容
+            if (alternativeSection) {
+                const altList = alternativeSection.querySelector('ul');
+                if (altList) {
+                    // 清空现有列表
+                    altList.innerHTML = '';
+                    
+                    // 添加特定的替代技术
+                    const altItems = [
+                        "Hydrogel Based Water Harvesting",
+                        "Capacitive Deionisation (CDI)",
+                        "Real Time Water Quality Monitoring Sensors"
+                    ];
+                    
+                    altItems.forEach(item => {
+                        const altItem = document.createElement('li');
+                        altItem.textContent = item;
+                        altList.appendChild(altItem);
+                    });
+                }
+            }
+            
+            // 查找Uplink Aquapreneurs部分
+            let uplinkSection = null;
+            for (const section of sections) {
+                if (section.textContent.includes('Uplink Aquapreneurs deploying these technologies')) {
+                    uplinkSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到Uplink Aquapreneurs部分，更新其内容
+            if (uplinkSection) {
+                const uplinkList = uplinkSection.querySelector('ul');
+                if (uplinkList) {
+                    // 清空现有列表
+                    uplinkList.innerHTML = '';
+                    
+                    // 添加特定的公司
+                    const companies = [
+                        { name: "Kilimo", url: "https://kilimo.com/en/" },
+                        { name: "SEABEX SAS", url: "https://seabex.com" },
+                        { name: "Spowdi", url: "https://spowdi.com/" }
+                    ];
+                    
+                    companies.forEach(company => {
+                        const companyItem = document.createElement('li');
+                        const companyLink = document.createElement('a');
+                        companyLink.textContent = company.name;
+                        companyLink.href = company.url;
+                        companyLink.target = "_blank";
+                        companyLink.style.color = "#333";
+                        companyLink.style.textDecoration = "none";
+                        companyItem.appendChild(companyLink);
+                        uplinkList.appendChild(companyItem);
+                    });
+                }
+            }
+        }
+    }, 100);
 }
 
 // 中等容量 - 洪水管理路径
@@ -1660,6 +1968,79 @@ function showNatureBasedSolutionsResult() {
         "Recommended Technology",
         "Nature-Based Solutions"
     );
+    
+    // 在结果显示后，检查并添加特定的替代技术和公司信息
+    setTimeout(() => {
+        const resultDisplay = document.getElementById('resultDisplay');
+        if (resultDisplay) {
+            // 查找替代技术部分
+            let alternativeSection = null;
+            const sections = resultDisplay.querySelectorAll('.tech-details > div');
+            for (const section of sections) {
+                if (section.textContent.includes('Alternative and complementary technologies')) {
+                    alternativeSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到替代技术部分，更新其内容
+            if (alternativeSection) {
+                const altList = alternativeSection.querySelector('ul');
+                if (altList) {
+                    // 清空现有列表
+                    altList.innerHTML = '';
+                    
+                    // 添加特定的替代技术
+                    const altItems = [
+                        "Floating Treatment Wetlands",
+                        "Rainwater Harvesting Systems",
+                        "Photo Thermal Umbrella for Solar Evaporation"
+                    ];
+                    
+                    altItems.forEach(item => {
+                        const altItem = document.createElement('li');
+                        altItem.textContent = item;
+                        altList.appendChild(altItem);
+                    });
+                }
+            }
+            
+            // 查找Uplink Aquapreneurs部分
+            let uplinkSection = null;
+            for (const section of sections) {
+                if (section.textContent.includes('Uplink Aquapreneurs deploying these technologies')) {
+                    uplinkSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到Uplink Aquapreneurs部分，更新其内容
+            if (uplinkSection) {
+                const uplinkList = uplinkSection.querySelector('ul');
+                if (uplinkList) {
+                    // 清空现有列表
+                    uplinkList.innerHTML = '';
+                    
+                    // 添加特定的公司
+                    const companies = [
+                        { name: "Syrinx", url: "https://www.syrinx.net.au" }
+                    ];
+                    
+                    companies.forEach(company => {
+                        const companyItem = document.createElement('li');
+                        const companyLink = document.createElement('a');
+                        companyLink.textContent = company.name;
+                        companyLink.href = company.url;
+                        companyLink.target = "_blank";
+                        companyLink.style.color = "#333";
+                        companyLink.style.textDecoration = "none";
+                        companyItem.appendChild(companyLink);
+                        uplinkList.appendChild(companyItem);
+                    });
+                }
+            }
+        }
+    }, 100);
 }
 
 function showModerateCapacityNoMatchResult() {
@@ -1720,6 +2101,81 @@ function showDecentralisedWaterTreatmentResult() {
         "Recommended Technology",
         "Decentralised Water Treatment Systems"
     );
+    
+    // 在结果显示后，检查并添加特定的替代技术和公司信息
+    setTimeout(() => {
+        const resultDisplay = document.getElementById('resultDisplay');
+        if (resultDisplay) {
+            // 查找替代技术部分
+            let alternativeSection = null;
+            const sections = resultDisplay.querySelectorAll('.tech-details > div');
+            for (const section of sections) {
+                if (section.textContent.includes('Alternative and complementary technologies')) {
+                    alternativeSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到替代技术部分，更新其内容
+            if (alternativeSection) {
+                const altList = alternativeSection.querySelector('ul');
+                if (altList) {
+                    // 清空现有列表
+                    altList.innerHTML = '';
+                    
+                    // 添加特定的替代技术
+                    const altItems = [
+                        "Forward Osmosis",
+                        "Solar Powered Desalination",
+                        "Electrocoagulation"
+                    ];
+                    
+                    altItems.forEach(item => {
+                        const altItem = document.createElement('li');
+                        altItem.textContent = item;
+                        altList.appendChild(altItem);
+                    });
+                }
+            }
+            
+            // 查找Uplink Aquapreneurs部分
+            let uplinkSection = null;
+            for (const section of sections) {
+                if (section.textContent.includes('Uplink Aquapreneurs deploying these technologies')) {
+                    uplinkSection = section;
+                    break;
+                }
+            }
+            
+            // 如果找到Uplink Aquapreneurs部分，更新其内容
+            if (uplinkSection) {
+                const uplinkList = uplinkSection.querySelector('ul');
+                if (uplinkList) {
+                    // 清空现有列表
+                    uplinkList.innerHTML = '';
+                    
+                    // 添加特定的公司
+                    const companies = [
+                        { name: "Indra Water", url: "https://www.indrawater.com" },
+                        { name: "Openversum", url: "https://www.openversum.com" },
+                        { name: "WASE", url: "https://wase.co.uk" }
+                    ];
+                    
+                    companies.forEach(company => {
+                        const companyItem = document.createElement('li');
+                        const companyLink = document.createElement('a');
+                        companyLink.textContent = company.name;
+                        companyLink.href = company.url;
+                        companyLink.target = "_blank";
+                        companyLink.style.color = "#333";
+                        companyLink.style.textDecoration = "none";
+                        companyItem.appendChild(companyLink);
+                        uplinkList.appendChild(companyItem);
+                    });
+                }
+            }
+        }
+    }, 100);
 }
 
 function showLowCapacityNoMatchResult() {
