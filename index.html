@@ -52,7 +52,9 @@
                 
                 <!-- 添加版权信息 -->
                 <div class="copyright-section">
-                    <p>Copyright © 2025 by Ashley Yu, Eddie Khan, Pepe Puchol-Salort & Michael Templeton</p>
+                    <p>Copyright © 2025.</p>
+                    <p>Water-BOOST tool concept and methodology developed by Dr Pepe Puchol-Salort, Braulio Eduardo Morera, Prof Ana Mijic, and Prof Michael Templeton. </p>
+                    <p>Web-platform implementation by Ashley Yu and Eddie Khan. </p>
                     <p>All rights reserved.</p>
                 </div>
             </div>
@@ -60,6 +62,11 @@
         <!-- 利益相关者流程页面 - 分析城市水资源创新系统的利益相关者 -->
         <div id="stakeholderFlow" class="page">
             <div class="stakeholder-card">
+                <!-- 添加logo -->
+                <div class="logo-container">
+                    <img src="WeChat08d121e1a68bc566584d8fb72aad84b3.jpg" alt="IMPERIAL Logo" class="logo-image">
+                </div>
+                
                 <h1 class="stakeholder-title">Enabler Analysis in <span id="cityNameDisplay">San Francisco</span></h1>
                 
                 <!-- 图表展示区域 - 显示城市特定的利益相关者流程图 -->
@@ -105,6 +112,11 @@
         <!-- 技术选择器页面 - 基于能力水平推荐合适的水资源技术 -->
         <div id="technologySelector" class="page">
             <div class="card">
+                <!-- 添加logo -->
+                <div class="logo-container">
+                    <img src="WeChat08d121e1a68bc566584d8fb72aad84b3.jpg" alt="IMPERIAL Logo" class="logo-image">
+                </div>
+                
                 <div class="header">
                     <h1>Water Technology Selector</h1>
                     <button class="back-btn" onclick="returnToStakeholderFlow()">← Back to Stakeholder Flow</button>
@@ -151,6 +163,11 @@
         <!-- 数据库窗口页面 - 显示缺失的利益相关者和城市指标数据 -->
         <div id="databaseWindow" class="page">
             <div class="card database-card">
+                <!-- 添加logo -->
+                <div class="logo-container">
+                    <img src="WeChat08d121e1a68bc566584d8fb72aad84b3.jpg" alt="IMPERIAL Logo" class="logo-image">
+                </div>
+                
                 <div class="header">
                     <h1 id="databaseTitle"></h1>
                     <button class="back-btn" onclick="closeDatabase()">← Back</button>
@@ -328,19 +345,26 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- 加载应用脚本 -->
-    <script src="database_content.js"></script>
-    <script src="metrics_data.js"></script>
-    <script src="app.js"></script>
-    
-    <!-- 分析完成弹窗 -->
-    <div id="completionModal" class="modal">
-        <div class="modal-content">
-            <h2 class="completion-title">Stage 1 completed: All essential stakeholders and enablers have been identified. Proceeding to Stage 2 for tailored technology.</h2>
-            <button class="modal-button" onclick="closeCompletionModal()">OK</button>
+        
+        <!-- 完成模态框 - 显示流程完成消息 -->
+        <div id="completionModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <!-- 添加logo -->
+                <div class="logo-container">
+                    <img src="WeChat08d121e1a68bc566584d8fb72aad84b3.jpg" alt="IMPERIAL Logo" class="logo-image">
+                </div>
+                
+                <h2 class="completion-title">Stakeholder Analysis Complete!</h2>
+                <p>You have successfully completed the stakeholder analysis for <span id="modalCityName"></span>.</p>
+                <p>Your city has a Minimal Viable System (MVS) for water innovation.</p>
+                <p>Now, let's proceed to the Technology Selector to find suitable water technologies for your city.</p>
+                <button class="modal-button" onclick="startTechnologyFlow()">Continue to Technology Selector</button>
+            </div>
         </div>
     </div>
+    
+    <script src="./database_content.js"></script>
+    <script src="./metrics_data.js"></script>
+    <script src="./app.js"></script>
 </body>
 </html> 

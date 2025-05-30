@@ -493,27 +493,41 @@ function handleResponse(isYes) {
 // 显示分析完成弹窗
 function showCompletionModal() {
     const modal = document.getElementById('completionModal');
-    modal.style.display = 'flex';
+    if (modal) {
+        // 设置城市名称
+        const cityNameSpan = document.getElementById('modalCityName');
+        if (cityNameSpan) {
+            cityNameSpan.textContent = selectedCity;
+        }
+        
+        // 显示模态框
+        modal.style.display = 'flex';
+    }
 }
 
-// 关闭分析完成弹窗
 function closeCompletionModal() {
     const modal = document.getElementById('completionModal');
-    modal.style.display = 'none';
-    
-    // 关闭弹窗后直接启动技术选择流程，而不是显示中间页面
-    startTechnologyFlow();
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 // 启动技术选择流程 - 从利益相关者流程转到技术选择器
 function startTechnologyFlow() {
-    history.push('technologySelector');
-    // 重置技术流程历史
+    // 关闭模态框
+    closeCompletionModal();
+    
+    // 重置技术选择历史
     techHistory = [];
-    techStep = 1;
+    techStep = 0;
+    
     // 显示技术选择器页面
     showPage('technologySelector');
-    // 直接进入第二个问题
+    
+    // 设置技术选择器标题
+    setTechHeaderTitle("Water Technology Selector");
+    
+    // 显示第一个技术问题
     secondTechQuestion();
 }
 
@@ -953,6 +967,21 @@ function showResult(title, message) {
     } else {
         actionBtn.textContent = 'Go Back to Capacity Pathway';
         actionBtn.onclick = showCapacitySelection;
+        
+        // 添加Start Over按钮
+        const startOverBtn = document.createElement('button');
+        startOverBtn.className = 'modern-button primary';
+        startOverBtn.textContent = 'Start Over';
+        startOverBtn.style.marginLeft = '15px';
+        startOverBtn.onclick = function() {
+            window.location.reload();
+        };
+        buttonContainer.appendChild(actionBtn);
+        buttonContainer.appendChild(startOverBtn);
+        
+        // 已经添加了两个按钮，直接返回
+        $('resultDisplay').appendChild(buttonContainer);
+        return;
     }
     buttonContainer.appendChild(actionBtn);
     $('resultDisplay').appendChild(buttonContainer);
@@ -1026,6 +1055,7 @@ function addUplinkAquapreneurs(container) {
     const uplinkList = document.createElement('ul');
     uplinkList.style.marginTop = '5px';
     uplinkList.style.paddingLeft = '20px';
+    uplinkList.className = 'uplink-companies'; // 添加类名，用于CSS样式
     
     // 为所有技术添加相同的公司列表
     const companies = [
@@ -1040,8 +1070,9 @@ function addUplinkAquapreneurs(container) {
         companyLink.textContent = company.name;
         companyLink.href = company.url;
         companyLink.target = "_blank";
-        companyLink.style.color = "#333";
-        companyLink.style.textDecoration = "none";
+        // 移除这些内联样式，让CSS文件控制样式
+        // companyLink.style.color = "#333";
+        // companyLink.style.textDecoration = "none";
         companyItem.appendChild(companyLink);
         uplinkList.appendChild(companyItem);
     });
